@@ -35,7 +35,7 @@ class DayPage extends StatelessWidget {
             title: new Text('Messages'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.group),
+            icon: new Icon(Icons.school),
             title: new Text('Trainers'),
           ),
           BottomNavigationBarItem(
@@ -63,9 +63,9 @@ class ExerciseList extends StatelessWidget {
           onTap: () => debugPrint("tapped" + _exercises[index].name),
           child: new ListTile(
               title : new Text(_exercises[index].name),
-              subtitle: new Text(_exercises[index].set.toString() +  " Set "),
+              subtitle: new Text(_exercises[index].subtitle()),
               leading: new CircleAvatar(
-                  child: new Text((index.toString())
+                  child: new Text(((index+1).toString())
               )
           ),
           )) ;

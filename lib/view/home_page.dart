@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
               title: new Text('Messages'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.group),
+            icon: new Icon(Icons.school),
             title: new Text('Trainers'),
           ),
           BottomNavigationBarItem(

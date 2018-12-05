@@ -19,7 +19,19 @@ class Exercise {
   }
 
   String subtitle() {
-    return "";
+    if(minRep == maxRep && minRPE != maxRPE) {
+      return "$set Set x $minRep reps RPE: $minRPE/$maxRPE";
+    }
+    else if(minRep != maxRep && minRPE == maxRPE){
+      return "$set Set x $minRep-$maxRep reps RPE: $minRPE";
+    }
+
+   else if (minRep == maxRep && minRPE == maxRPE)  {
+      return "$set Set x $minRep reps RPE: $minRPE";
+    }
+    else{
+      return "$set Set x $minRep-$maxRep reps RPE: $minRPE/$maxRPE";
+    }
   }
 }
 
