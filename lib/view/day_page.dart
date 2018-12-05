@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Exercise.dart';
 
 
-class HomePage extends StatelessWidget {
-  static String tag = 'home-page';
+class DayPage extends StatelessWidget {
+  static String tag = 'day-page';
 
   final List<Exercise> exercises = Exercise.allExercises();
 

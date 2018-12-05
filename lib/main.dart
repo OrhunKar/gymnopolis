@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/view/login_page.dart';
 import 'package:gymnopolis/view/home_page.dart';
+import 'package:gymnopolis/view/day_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,6 +11,7 @@ class MyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
     LoginPage.tag: (context) => LoginPage(),
     HomePage.tag: (context) => HomePage(),
+    DayPage.tag: (context) => DayPage(),
   };
 
   @override

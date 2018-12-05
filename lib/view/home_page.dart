@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Workout.dart';
+import 'package:gymnopolis/view/day_page.dart';
 
 class HomePage extends StatelessWidget {
   static String tag = 'home-page';
@@ -59,7 +60,11 @@ class WorkoutList extends StatelessWidget {
       itemCount: _workouts.length,
       itemBuilder: (BuildContext context, int index){
         return new GestureDetector(
-          onTap: () => debugPrint("tapped" + _workouts[index].name),
+          onTap: (){
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DayPage()),
+          );},
           child: new ListTile(
               title : new Text(_workouts[index].name),
               subtitle: new Text(_workouts[index].instructorName + " Hoca"),
