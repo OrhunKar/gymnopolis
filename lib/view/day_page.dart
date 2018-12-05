@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/model/Workout.dart';
+import 'package:gymnopolis/model/Exercise.dart';
+
 
 class HomePage extends StatelessWidget {
   static String tag = 'home-page';
 
-  final List<Workout> workouts = Workout.allWorkouts();
+  final List<Exercise> exercises = Exercise.allExercises();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
           new IconButton(icon: new Icon(Icons.edit), onPressed: null)
         ],
       ),
-      body: new WorkoutList(workouts), //List displayed here
+      body: new ExerciseList(exercises), //List displayed here
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed, //This prevents type to change to shifting
         currentIndex: 0, // this will be set when a new tab is tapped
@@ -30,8 +31,8 @@ class HomePage extends StatelessWidget {
             title: new Text('Nutrition'),
           ),
           BottomNavigationBarItem(
-              icon: new Icon(Icons.message),
-              title: new Text('Messages'),
+            icon: new Icon(Icons.message),
+            title: new Text('Messages'),
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.group),
@@ -47,27 +48,27 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class WorkoutList extends StatelessWidget {
+class ExerciseList extends StatelessWidget {
 
-  final List<Workout> _workouts;
+  final List<Exercise> _exercises;
 
-  WorkoutList(this._workouts);
+  ExerciseList(this._exercises);
 
   @override
   Widget build(BuildContext context) {
     return new ListView.builder(
-      itemCount: _workouts.length,
+      itemCount: _exercises.length,
       itemBuilder: (BuildContext context, int index){
         return new GestureDetector(
-          onTap: () => debugPrint("tapped" + _workouts[index].name),
+          onTap: () => debugPrint("tapped" + _exercises[index].name),
           child: new ListTile(
-              title : new Text(_workouts[index].name),
-              subtitle: new Text(_workouts[index].instructorName + " Hoca"),
+              title : new Text(_exercises[index].name),
+              subtitle: new Text(_exercises[index].set.toString() +  " Set "),
               leading: new CircleAvatar(
-                  child: new Text((_workouts[index].day).toString())
+                  child: new Text((index.toString())
               )
           ),
-        ) ;
+          )) ;
       },
       padding: new EdgeInsets.symmetric(vertical: 8.0),
     );
