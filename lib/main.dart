@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnopolis/view/login_page.dart';
 import 'package:gymnopolis/view/home_page.dart';
 import 'package:gymnopolis/view/day_page.dart';
+import 'package:gymnopolis/view/exerciseinfo_page.dart';
 
 void main() => runApp(MyApp());
 
