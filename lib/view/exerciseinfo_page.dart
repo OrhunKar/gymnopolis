@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Exercise.dart';
 
 
-class DayPage extends StatelessWidget {
-  static String tag = 'day-page';
-
-  final List<Exercise> exercises = Exercise.allExercises();
+class ExerciseInfoPage extends StatelessWidget {
+  static String tag = 'exerciseinfo-page';
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +15,9 @@ class DayPage extends StatelessWidget {
           new IconButton(icon: new Icon(Icons.edit), onPressed: null)
         ],
       ),
-      body: new ExerciseList(exercises), //List displayed here
+      body: new Text("The Bench Press is a full body, compound exercise. It works your chest, shoulders and triceps most. It's the most effective exercise to gain upper-body strength and muscle mass because it's the upper-body exercise you'll lift most weight on (more than Overhead Press). The bigger your bench, the bigger your chest."), //List displayed here
+
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed, //This prevents type to change to shifting
         currentIndex: 0, // this will be set when a new tab is tapped
@@ -44,34 +44,6 @@ class DayPage extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class ExerciseList extends StatelessWidget {
-
-  final List<Exercise> _exercises;
-
-  ExerciseList(this._exercises);
-
-  @override
-  Widget build(BuildContext context) {
-    return new ListView.builder(
-      itemCount: _exercises.length,
-      itemBuilder: (BuildContext context, int index){
-        return new GestureDetector(
-            onTap: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ExerciseInfoPage()),
-              );},
-          child: new ListTile(
-              title : new Text(_exercises[index].name),
-              subtitle: new Text(_exercises[index].subtitle()),
-
-          )) ;
-      },
-      padding: new EdgeInsets.symmetric(vertical: 8.0),
     );
   }
 }

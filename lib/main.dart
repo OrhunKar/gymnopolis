@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     LoginPage.tag: (context) => LoginPage(),
     HomePage.tag: (context) => HomePage(),
     DayPage.tag: (context) => DayPage(),
+    ExerciseInfoPage.tag: (context) => ExerciseInfoPage(),
   };
 
   @override
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.deepOrange,
+        accentColor: Colors.blueGrey[50],
         fontFamily: 'Nunito'
       ),
       home: LoginPage(),

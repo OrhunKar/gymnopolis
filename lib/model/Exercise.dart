@@ -5,6 +5,7 @@ class Exercise {
   final int minRPE;
   final int maxRPE;
   final int set;
+  var equipment;
 
   Exercise({this.name, this.minRep, this.maxRep, this.minRPE, this.maxRPE,
       this.set});
