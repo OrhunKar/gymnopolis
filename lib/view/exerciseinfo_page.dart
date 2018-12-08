@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Exercise.dart';
 
 
+
 class ExerciseInfoPage extends StatelessWidget {
   static String tag = 'exerciseinfo-page';
 

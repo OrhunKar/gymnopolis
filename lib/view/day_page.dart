@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Exercise.dart';
+import 'package:gymnopolis/view/exerciseinfo_page.dart';
 
 
 class DayPage extends StatelessWidget {
