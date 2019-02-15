@@ -12,6 +12,9 @@ class DayPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: null,
+      child: Icon(Icons.fitness_center)),
+      
       appBar: AppBar(
         title: Text('Workout Plan'),
         actions: <Widget>[

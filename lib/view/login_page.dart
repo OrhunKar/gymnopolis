@@ -74,6 +74,19 @@ class _LoginPageState extends State<LoginPage> {
       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
       splashColor: Colors.white,
     );
+   /* final becomeTrainerButton = new RaisedButton(
+      child: new Text('Register', style: TextStyle(fontSize: 18.0, color: Colors.white),),
+      padding: EdgeInsets.symmetric(vertical: 10.0),
+      color: Theme.of(context).primaryColor,
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      },
+      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+      splashColor: Colors.white,
+    );*/
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -91,6 +104,8 @@ class _LoginPageState extends State<LoginPage> {
             loginButton,
             SizedBox(height: 8.0),
             registerButton
+            //        SizedBox(height: 8.0),
+  //          becomeTrainerButton
           ],
         ),
       ),
