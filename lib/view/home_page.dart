@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Workout.dart';
 import 'package:gymnopolis/view/day_page.dart';
 import 'package:gymnopolis/control/placeholder_widget.dart';
+import 'package:gymnopolis/view/nutrition_page.dart';
+import 'package:gymnopolis/view/workout_page.dart';
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
 
@@ -9,14 +11,22 @@ class HomePage extends StatefulWidget {
     return HomePageState();
   }
 }
-  final List<Workout> workouts = Workout.allWorkouts();
+
 
   @override
   class HomePageState extends State<HomePage> {
     int _currentIndex = 0;
-    final List<Widget> _children = [   PlaceholderWidget(Colors.white),
-    PlaceholderWidget(Colors.deepOrange),
-    PlaceholderWidget(Colors.green)];
+    NutritionPage _nutritionPage;
+    WorkoutPage _workoutPage;
+    List<Widget> pages;
+    Widget currentPage;
+    void initState(){
+      _workoutPage = WorkoutPage();
+      _nutritionPage = NutritionPage();
+      pages = [_workoutPage, _nutritionPage];
+      currentPage = _workoutPage;
+      super.initState();
+    }
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
@@ -25,9 +35,14 @@ class HomePage extends StatefulWidget {
             new IconButton(icon: new Icon(Icons.edit), onPressed: null)
           ],
         ),
-        body: new WorkoutList(workouts), //List displayed here
+        body:currentPage,
         bottomNavigationBar: BottomNavigationBar(
-          onTap: onTabTapped,
+          onTap: (int index){
+            setState(() {
+              _currentIndex=index;
+              currentPage = pages[index];
+            });
+          },
           type: BottomNavigationBarType.fixed,
           //This prevents type to change to shifting
           currentIndex: _currentIndex,
@@ -57,41 +72,7 @@ class HomePage extends StatefulWidget {
         ),
       );
     }
-    void onTabTapped(int index) {
-      setState(() {
-        _currentIndex = index;
-      });
-    }
   }
 
-class WorkoutList extends StatelessWidget {
 
-  final List<Workout> _workouts;
-
-  WorkoutList(this._workouts);
-
-  @override
-  Widget build(BuildContext context) {
-    return new ListView.builder(
-      itemCount: _workouts.length,
-      itemBuilder: (BuildContext context, int index){
-        return new GestureDetector(
-          onTap: (){
-            Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => DayPage()),
-          );},
-          child: new ListTile(
-              title : new Text(_workouts[index].name),
-              subtitle: new Text(_workouts[index].instructorName + " Hoca"),
-              leading: new CircleAvatar(
-                  child: new Text((_workouts[index].day).toString())
-              )
-          ),
-        ) ;
-      },
-      padding: new EdgeInsets.symmetric(vertical: 8.0),
-    );
-  }
-}
 
