@@ -20,17 +20,19 @@ class HomePage extends StatefulWidget {
     WorkoutPage _workoutPage;
     List<Widget> pages;
     Widget currentPage;
+    List<String> pageNames;
     void initState(){
       _workoutPage = WorkoutPage();
       _nutritionPage = NutritionPage();
       pages = [_workoutPage, _nutritionPage];
+      pageNames = ['Workout Plan', 'Nutrition Plan'];
       currentPage = _workoutPage;
       super.initState();
     }
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Workout Plan'),
+          title: Text(pageNames[_currentIndex]),
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.edit), onPressed: null)
           ],
