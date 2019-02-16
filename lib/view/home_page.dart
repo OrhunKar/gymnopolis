@@ -4,6 +4,13 @@ import 'package:gymnopolis/view/day_page.dart';
 import 'package:gymnopolis/control/placeholder_widget.dart';
 import 'package:gymnopolis/view/nutrition_page.dart';
 import 'package:gymnopolis/view/workout_page.dart';
+import 'package:gymnopolis/view/profile_page.dart';
+import 'package:gymnopolis/view/instructors_page.dart';
+import 'package:gymnopolis/view/messages_page.dart';
+import 'package:gymnopolis/model/Graph.dart';
+
+import 'package:charts_flutter/flutter.dart' as charts;
+
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
 
@@ -12,20 +19,47 @@ class HomePage extends StatefulWidget {
   }
 }
 
+List<Widget> pageAction(int index){
+  if(index == 0 ){
+    return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
+  }
+  if(index == 1 ){
+    return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
+  }
+  if(index == 2 ){
+    return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
+  }
+  if(index == 3 ){
+    return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
+  }
+  if(index == 4 ){
+    return <Widget>[new IconButton(icon: new Icon(Icons.history), onPressed: null),
+                    new IconButton(icon: new Icon(Icons.account_balance_wallet), onPressed: null),
+                    new IconButton(icon: new Icon(Icons.settings), onPressed: null)];
+  }
+  return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
+}
 
   @override
   class HomePageState extends State<HomePage> {
+
     int _currentIndex = 0;
     NutritionPage _nutritionPage;
     WorkoutPage _workoutPage;
+    ProfilePage _profilePage;
+    InstructorsPage _instructorsPage;
+    MessagesPage _messagesPage;
     List<Widget> pages;
     Widget currentPage;
     List<String> pageNames;
     void initState(){
       _workoutPage = WorkoutPage();
       _nutritionPage = NutritionPage();
-      pages = [_workoutPage, _nutritionPage];
-      pageNames = ['Workout Plan', 'Nutrition Plan'];
+      _messagesPage = MessagesPage();
+      _instructorsPage = InstructorsPage();
+      _profilePage = ProfilePage(new Graph().getData(), animate:false);
+      pages = [_workoutPage, _nutritionPage, _messagesPage, _instructorsPage, _profilePage];
+      pageNames = ['Workout Plan', 'Nutrition Plan', 'Messages', 'Instructors', 'Profile'];
       currentPage = _workoutPage;
       super.initState();
     }
@@ -33,9 +67,7 @@ class HomePage extends StatefulWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(pageNames[_currentIndex]),
-          actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.edit), onPressed: null)
-          ],
+          actions: pageAction(_currentIndex)
         ),
         body:currentPage,
         bottomNavigationBar: BottomNavigationBar(
