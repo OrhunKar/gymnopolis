@@ -8,7 +8,7 @@ import 'package:gymnopolis/view/profile_page.dart';
 import 'package:gymnopolis/view/instructors_page.dart';
 import 'package:gymnopolis/view/messages_page.dart';
 import 'package:gymnopolis/model/Graph.dart';
-
+import 'package:gymnopolis/view/settings_page.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class HomePage extends StatefulWidget {
@@ -19,30 +19,41 @@ class HomePage extends StatefulWidget {
   }
 }
 
-List<Widget> pageAction(int index){
-  if(index == 0 ){
-    return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
-  }
-  if(index == 1 ){
-    return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
-  }
-  if(index == 2 ){
-    return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
-  }
-  if(index == 3 ){
-    return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
-  }
-  if(index == 4 ){
-    return <Widget>[new IconButton(icon: new Icon(Icons.history), onPressed: null),
-                    new IconButton(icon: new Icon(Icons.account_balance_wallet), onPressed: null),
-                    new IconButton(icon: new Icon(Icons.settings), onPressed: null)];
-  }
-  return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
-}
+
 
   @override
   class HomePageState extends State<HomePage> {
-
+    List<Widget> pageAction(int index) {
+      if (index == 0) {
+        return <Widget>[
+          new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
+      }
+      if (index == 1) {
+        return <Widget>[
+          new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
+      }
+      if (index == 2) {
+        return <Widget>[
+          new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
+      }
+      if (index == 3) {
+        return <Widget>[
+          new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
+      }
+      if (index == 4) {
+        return <Widget>[
+          new IconButton(icon: new Icon(Icons.history), onPressed: null),
+          new IconButton(
+              icon: new Icon(Icons.account_balance_wallet), onPressed: null),
+          new IconButton(icon: new Icon(Icons.settings), onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SettingsPage()));
+          })
+        ];
+      }
+      return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)
+      ];
+    }
     int _currentIndex = 0;
     NutritionPage _nutritionPage;
     WorkoutPage _workoutPage;

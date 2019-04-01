@@ -1,0 +1,10 @@
+class Trainer {
+  final image picture;
+  final String fullname;
+  final double responsiveness;
+  final double effectiveness;
+  final double satisfaction;
+  final double salary;
+  final text bio;
+  final boolean online;
+}
