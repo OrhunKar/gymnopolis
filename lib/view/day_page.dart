@@ -17,6 +17,7 @@ class DayPage extends StatelessWidget {
       
       appBar: AppBar(
         title: Text('Workout Plan'),
+        leading: new Container(),
         actions: <Widget>[
           new IconButton(icon: new Icon(Icons.edit), onPressed: null)
         ],

@@ -3,6 +3,12 @@ import 'package:gymnopolis/view/login_page.dart';
 import 'package:gymnopolis/view/home_page.dart';
 import 'package:gymnopolis/view/day_page.dart';
 import 'package:gymnopolis/view/exerciseinfo_page.dart';
+import 'package:gymnopolis/view/instructor/instructor_home_page.dart';
+import 'package:gymnopolis/view/instructor/instructor_instructors_page.dart';
+import 'package:gymnopolis/view/instructor/instructor_messages_page.dart';
+import 'package:gymnopolis/view/instructor/instructor_profile_page.dart';
+import 'package:gymnopolis/view/instructor/students_page.dart';
+import 'package:gymnopolis/view/instructor/templates_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,6 +18,11 @@ class MyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
     LoginPage.tag: (context) => LoginPage(),
     HomePage.tag: (context) => HomePage(),
+    InstructorHomePage.tag: (context) => InstructorHomePage(),
+    InstructorsInstructorPage.tag: (context) => InstructorsInstructorPage(),
+    InstructorsMessagesPage.tag: (context) => InstructorsMessagesPage(),
+    InstructorsProfilePage.tag: (context) => InstructorsProfilePage(),
+    TemplatesPage.tag: (context) => TemplatesPage(),
     DayPage.tag: (context) => DayPage(),
     ExerciseInfoPage.tag: (context) => ExerciseInfoPage(),
   };

@@ -43,6 +43,7 @@ flutter:
   assets:
     - assets/logo.png
     - assets/alucard.jpg
+    - assets/human_wood.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
