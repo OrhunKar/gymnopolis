@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/view/home_page.dart';
+import 'package:flutter/services.dart';
+import 'package:gymnopolis/view/instructor/instructor_home_page.dart';
+import 'package:gymnopolis/ExternalStyles/TabIndicationPainter.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page'; //tag for router
@@ -10,6 +13,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  String loginType = "Trainee";
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -53,10 +60,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.symmetric(vertical: 10.0),
       color: Theme.of(context).primaryColor,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
+        Navigator.pushNamed(context, userType());
       },
       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
       splashColor: Colors.white,
@@ -66,10 +70,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.symmetric(vertical: 10.0),
       color: Theme.of(context).primaryColor,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
+        Navigator.pushNamed(context, userType());
       },
       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
       splashColor: Colors.white,
@@ -96,6 +97,8 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             logo,
+            SizedBox(height: 8.0),
+            _buildMenuBar(context),
             SizedBox(height: 48.0),
             email,
             SizedBox(height: 8.0),
@@ -112,4 +115,70 @@ class _LoginPageState extends State<LoginPage> {
     );
 
   }
+
+  Widget _buildMenuBar(BuildContext context) {
+
+    return Container(
+      width: 300.0,
+      height: 50.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Container(
+              color: getColorForTrainee(loginType),
+              child: FlatButton(
+                onPressed: ()=> setState(() => loginType = "Trainee"),
+
+                child: Text(
+                  "Trainee",
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: "WorkSansSemiBold"),
+                ),
+              ),
+            ),
+            //Container(height: 33.0, width: 1.0, color: Colors.white),
+            Container(
+              color: getColorForTrainer(loginType),
+              child: FlatButton(
+                onPressed: () => setState(() => loginType = "Trainer"),
+
+                child: Text(
+                  "Trainer",
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: "WorkSansSemiBold"),
+                ),
+              ),
+            ),
+          ],
+        ),
+    );
+  }
+
+  Color getColorForTrainee(String type) {
+    if (type == "Trainee") {
+      return Colors.blue;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  Color getColorForTrainer(String type) {
+    if (type == "Trainer") {
+      return Colors.blue;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  String userType(){
+    if(loginType == "Trainer")
+      return 'instructor-home-page';
+    else
+      return 'home-page';
+
+  }
 }
+
+

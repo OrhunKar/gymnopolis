@@ -22,6 +22,21 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new charts.LineChart(seriesList, animate: animate);
+    return SingleChildScrollView(
+      child: Stack(
+        children: <Widget>[
+          Image.asset(
+            'assets/human_wood.jpg',
+        ),
+        new Padding(
+          padding: new EdgeInsets.all(32.0),
+          child: new SizedBox(
+            height: 200.0,
+            child: new charts.LineChart(seriesList, animate: animate),
+          ),
+        ),
+        ],
+      ),
+    );
   }
 }

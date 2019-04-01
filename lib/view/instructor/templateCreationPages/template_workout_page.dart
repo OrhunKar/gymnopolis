@@ -5,17 +5,21 @@ import 'package:gymnopolis/control/placeholder_widget.dart';
 import 'package:gymnopolis/view/nutrition_page.dart';
 final List<Workout> workouts = Workout.allWorkouts();
 
-class WorkoutPage extends StatefulWidget {
+class TemplateWorkoutPage extends StatefulWidget {
   static String tag = 'workout-page';
 
+  final String name;
+
+  TemplateWorkoutPage(this.name);
+
   createState() {
-    return WorkoutState(workouts);
+    return TemplateWorkoutState(workouts);
   }
 }
 
-class WorkoutState extends State<WorkoutPage> {
+class TemplateWorkoutState extends State<TemplateWorkoutPage> {
   final List<Workout> _workouts;
-  WorkoutState(this._workouts);
+  TemplateWorkoutState(this._workouts);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class WorkoutState extends State<WorkoutPage> {
               title : new Text(_workouts[index].name),
               subtitle: new Text(_workouts[index].instructorName + " Hoca"),
               leading: new CircleAvatar(
-                  child: new Text((_workouts[index].day).toString())
+                  child: new Text("Day " + (_workouts[index].day).toString())
               )
           ),
         ) ;

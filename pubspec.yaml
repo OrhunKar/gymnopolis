@@ -49,6 +49,8 @@ flutter:
     - assets/alucard.jpg
     - assets/beslenme.png
     - assets/primary-share.png
+    - assets/human_wood.jpg
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

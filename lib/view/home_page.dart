@@ -71,7 +71,7 @@ class HomePage extends StatefulWidget {
       _profilePage = ProfilePage(new Graph().getData(), animate:false);
       pages = [_workoutPage, _nutritionPage, _messagesPage, _instructorsPage, _profilePage];
       pageNames = ['Workout Plan', 'Nutrition Plan', 'Messages', 'Instructors', 'Profile'];
-      currentPage = _workoutPage;
+      currentPage = _workoutPage; //Always workouts will be displayed first
       super.initState();
     }
     Widget build(BuildContext context) {
