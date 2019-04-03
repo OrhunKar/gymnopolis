@@ -1,54 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Exercise.dart';
 import 'package:gymnopolis/view/exerciseinfo_page.dart';
+import 'package:gymnopolis/view/trainee/workout_assistant.dart';
 
-
-class DayPage extends StatelessWidget {
+class DayPage extends StatefulWidget {
   static String tag = 'day-page';
 
-  final List<Exercise> exercises = Exercise.allExercises();
+  final String name;
+  final List<Exercise> exercise;
+
+  DayPage(this.name, this.exercise);
+
+  @override
+  DayPageState createState() {
+    return new DayPageState();
+  }
+}
+
+class DayPageState extends State<DayPage> {
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: null,
+
+      floatingActionButton: FloatingActionButton(
+          onPressed: (){Navigator.push(
+          context, MaterialPageRoute(builder: (context) => WorkoutAssistantPage(widget.name, widget.exercise)));},
       child: Icon(Icons.fitness_center)),
-      
+
       appBar: AppBar(
-        title: Text('Workout Plan'),
-        leading: new Container(),
+        title: Text(widget.name),
         actions: <Widget>[
           new IconButton(icon: new Icon(Icons.edit), onPressed: null)
         ],
       ),
-      body: new ExerciseList(exercises), //List displayed here
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, //This prevents type to change to shifting
-        currentIndex: 0, // this will be set when a new tab is tapped
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.directions_bike),
-            title: new Text('Workout'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.local_dining),
-            title: new Text('Nutrition'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.message),
-            title: new Text('Messages'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.school),
-            title: new Text('Trainers'),
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: new Text('Profile')
-          )
-        ],
-      ),
+      body: new ExerciseList(widget.exercise), //List displayed here
     );
   }
 }
@@ -70,10 +57,21 @@ class ExerciseList extends StatelessWidget {
                 context,
                 MaterialPageRoute(builder: (context) => ExerciseInfoPage()),
               );},
-          child: new ListTile(
-              title : new Text(_exercises[index].name),
-              subtitle: new Text(_exercises[index].subtitle()),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Container(
+            height: 100.0,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 0.5),
+            ),
+              child: Center(
+                child: new ListTile(
+                    title : new Text(_exercises[index].name, style: new TextStyle(fontSize: 22.0)),
+                    subtitle: new Text(_exercises[index].subtitle()),
 
+                ),
+              ),
+            ),
           )) ;
       },
       padding: new EdgeInsets.symmetric(vertical: 8.0),

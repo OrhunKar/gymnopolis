@@ -13,6 +13,7 @@ class InstructorsPage extends StatefulWidget {
 }
 
 class InstructorsPageState extends State<InstructorsPage> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -71,7 +72,6 @@ class InstructorCard extends StatelessWidget{
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
-
                     children: <Widget>[
                       Container(
                           width: 60.0,

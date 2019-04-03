@@ -9,6 +9,7 @@ import 'package:gymnopolis/view/instructor/templates_page.dart';
 class InstructorHomePage extends StatefulWidget {
   static String tag = 'instructor-home-page';
 
+  @override
   createState() {
     return InstructorHomePageState();
   }

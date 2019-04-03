@@ -1,40 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:gymnopolis/model/Exercise.dart';
 import 'package:gymnopolis/model/Workout.dart';
 import 'package:gymnopolis/view/day_page.dart';
 import 'package:gymnopolis/control/placeholder_widget.dart';
 import 'package:gymnopolis/view/nutrition_page.dart';
-final List<Workout> workouts = Workout.allWorkouts();
+
 
 class WorkoutPage extends StatefulWidget {
   static String tag = 'workout-page';
 
   createState() {
-    return WorkoutState(workouts);
+    return WorkoutState();
   }
 }
 
 class WorkoutState extends State<WorkoutPage> {
-  final List<Workout> _workouts;
-  WorkoutState(this._workouts);
+
+  Workout _workout = Workout("workout1", "Can Hoca");
 
   @override
   Widget build(BuildContext context) {
 
     return new ListView.builder(
-      itemCount: _workouts.length,
+      itemCount: _workout.allWorkouts().length,
       itemBuilder: (BuildContext context, int index){
         return new GestureDetector(
           onTap: (){
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DayPage()),
-            );},
-          child: new ListTile(
-              title : new Text(_workouts[index].name),
-              subtitle: new Text(_workouts[index].instructorName + " Hoca"),
-              leading: new CircleAvatar(
-                  child: new Text((_workouts[index].day).toString())
+              MaterialPageRoute(builder: (context) => DayPage(_workout.allWorkouts()[index].name, _workout.allWorkouts()[index].exerciseList),
               )
+            );},
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Container(
+              height: 100.0,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey, width: 0.5),
+              ),
+              child: Center(
+                child: new ListTile(
+                    title : new Text(_workout.allWorkouts()[index].name, style: new TextStyle(fontSize: 22.0)),
+                    subtitle: new Text(_workout.instructorName + " Hoca", style: new TextStyle(fontStyle: FontStyle.italic)),
+                    leading: new CircleAvatar(
+                        child: new Text((index+1).toString())
+                    )
+                ),
+              ),
+            ),
           ),
         ) ;
       },

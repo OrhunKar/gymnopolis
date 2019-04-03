@@ -23,37 +23,7 @@ class HomePage extends StatefulWidget {
 
   @override
   class HomePageState extends State<HomePage> {
-    List<Widget> pageAction(int index) {
-      if (index == 0) {
-        return <Widget>[
-          new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
-      }
-      if (index == 1) {
-        return <Widget>[
-          new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
-      }
-      if (index == 2) {
-        return <Widget>[
-          new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
-      }
-      if (index == 3) {
-        return <Widget>[
-          new IconButton(icon: new Icon(Icons.edit), onPressed: null)];
-      }
-      if (index == 4) {
-        return <Widget>[
-          new IconButton(icon: new Icon(Icons.history), onPressed: null),
-          new IconButton(
-              icon: new Icon(Icons.account_balance_wallet), onPressed: null),
-          new IconButton(icon: new Icon(Icons.settings), onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SettingsPage()));
-          })
-        ];
-      }
-      return <Widget>[new IconButton(icon: new Icon(Icons.edit), onPressed: null)
-      ];
-    }
+
     int _currentIndex = 0;
     NutritionPage _nutritionPage;
     WorkoutPage _workoutPage;
@@ -78,10 +48,11 @@ class HomePage extends StatefulWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(pageNames[_currentIndex]),
-          actions: pageAction(_currentIndex)
+          actions: _profilePage.topBar(context),
         ),
         body:currentPage,
         bottomNavigationBar: BottomNavigationBar(
+
           onTap: (int index){
             setState(() {
               _currentIndex=index;

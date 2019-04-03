@@ -1,19 +1,43 @@
+import 'package:gymnopolis/model/Day.dart';
+import 'package:gymnopolis/model/Exercise.dart';
+
 class Workout {
 
-  final String name;
-  final int day;
-  final String instructorName;
+  String name;
+  String instructorName;
 
-  Workout({this.name, this.day, this.instructorName});
+  Workout(this.name, this.instructorName);
 
-  static List<Workout> allWorkouts()
+
+  List<Day> allWorkouts()
   {
-    var list = new List<Workout>();
+    var list = new List<Day>();
 
-    list.add(new Workout(name: "Chest", day: 1, instructorName: "Can"));
-    list.add(new Workout(name: "Back", day: 2, instructorName: "Can"));
-    list.add(new Workout(name: "Legs", day: 3, instructorName: "Can"));
-    list.add(new Workout(name: "Shoulder", day: 4, instructorName: "Can"));
+    list.add(new Day(name: "Chest", exerciseList: exampleExercises()));
+    list.add(new Day(name: "Back", exerciseList: exampleExercises()));
+    list.add(new Day(name: "Legs", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+
+    return list;
+  }
+
+  static List<Exercise> exampleExercises()
+  {
+    var list = new List<Exercise>();
+
+    list.add(new Exercise(name: "Bench Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
+    list.add(new Exercise(name: "French Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
+    list.add(new Exercise(name: "Dumbell Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
+    list.add(new Exercise(name: "Romanian Deadlift", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
+
+    return list;
+  }
+
+  static List<Exercise> allExercises()
+  {
+    var list = new List<Exercise>();
+
+    list.add(new Exercise(name: "Bench Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
 
     return list;
   }

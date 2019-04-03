@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     InstructorsMessagesPage.tag: (context) => InstructorsMessagesPage(),
     InstructorsProfilePage.tag: (context) => InstructorsProfilePage(),
     TemplatesPage.tag: (context) => TemplatesPage(),
-    DayPage.tag: (context) => DayPage(),
+    //DayPage.tag: (context) => DayPage(),
     ExerciseInfoPage.tag: (context) => ExerciseInfoPage(),
   };
 
@@ -42,9 +42,11 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+        brightness: Brightness.light,
         primarySwatch: Colors.deepOrange,
-        accentColor: Colors.blueGrey[50],
-        fontFamily: 'Nunito'
+        accentColor: Colors.purple,
+        canvasColor: Colors.grey[100],
+        fontFamily: 'Nunito',
       ),
       home: LoginPage(),
       routes: routes,
