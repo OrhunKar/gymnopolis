@@ -1,4 +1,4 @@
-# gymnopolis
+# Gymnopolis
 
 CS491&#x2F;492 senior project
 
