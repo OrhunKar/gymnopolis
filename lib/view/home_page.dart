@@ -42,8 +42,10 @@ class HomePage extends StatefulWidget {
       _messagesPage = MessagesPage();
       _instructorsPage = InstructorsPage();
       _profilePage = ProfilePage(new Graph().getData(), animate:false);
+
       pages = [_workoutPage, _nutritionPage, _messagesPage, _instructorsPage, _profilePage];
       thisPages = [_workoutPage, _nutritionPage, _messagesPage, _instructorsPage, _profilePage];
+
       pageNames = ['Workout Plan', 'Nutrition Plan', 'Messages', 'Instructors', 'Profile'];
       currentPage = _workoutPage; //Always workouts will be displayed first
       thisPage = _workoutPage;
@@ -55,9 +57,20 @@ class HomePage extends StatefulWidget {
           title: Text(pageNames[_currentIndex]),
           actions: thisPage.topBar(context),
         ),
-        body:currentPage,
-        bottomNavigationBar: BottomNavigationBar(
+        body: PageView(
+          controller: PageController(viewportFraction: 1.0),
+          children: <Widget>[_workoutPage, _nutritionPage, _messagesPage, _instructorsPage, _profilePage],
+          onPageChanged: (int index){
+            setState(() {
+              _currentIndex=index;
+              currentPage = pages[index];
+              thisPage = thisPages[index];
+            });
+          },
+        ),
 
+        //currentPage,
+        bottomNavigationBar: BottomNavigationBar(
           onTap: (int index){
             setState(() {
               _currentIndex=index;

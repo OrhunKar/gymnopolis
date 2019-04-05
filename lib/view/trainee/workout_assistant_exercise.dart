@@ -1,6 +1,8 @@
 ///There are some more information to get such as disposing an active ticker look onto it
 ///TickerProviderStateMixin is useful for implementing custom countdowns
 
+///Some code parts taken from this page
+///https://github.com/tensor-programming/flutter_timer_example/blob/master/lib/main.dart
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:floating_bubble/floating_bubble.dart';

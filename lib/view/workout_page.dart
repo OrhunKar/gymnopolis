@@ -1,3 +1,6 @@
+///Orderable list view dependency taken from here
+///https://github.com/knopp/flutter_reorderable_list/blob/master/example/lib/main.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:gymnopolis/model/Exercise.dart';
@@ -30,6 +33,7 @@ class ItemData {
   final Key key;
 }
 
+//This can be changed according to target audience
 enum DraggingMode {
   iOS,
   Android,
