@@ -10,6 +10,7 @@ import 'package:gymnopolis/view/messages_page.dart';
 import 'package:gymnopolis/model/Graph.dart';
 import 'package:gymnopolis/view/settings_page.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:gymnopolis/view/Page.dart';
 
 class HomePage extends StatefulWidget {
   static String tag = 'home-page';
@@ -22,7 +23,7 @@ class HomePage extends StatefulWidget {
 
 
   @override
-  class HomePageState extends State<HomePage> {
+  class HomePageState extends State<HomePage>{
 
     int _currentIndex = 0;
     NutritionPage _nutritionPage;
@@ -32,6 +33,8 @@ class HomePage extends StatefulWidget {
     MessagesPage _messagesPage;
     List<Widget> pages;
     Widget currentPage;
+    List<Page> thisPages;
+    Page thisPage;
     List<String> pageNames;
     void initState(){
       _workoutPage = WorkoutPage();
@@ -40,15 +43,17 @@ class HomePage extends StatefulWidget {
       _instructorsPage = InstructorsPage();
       _profilePage = ProfilePage(new Graph().getData(), animate:false);
       pages = [_workoutPage, _nutritionPage, _messagesPage, _instructorsPage, _profilePage];
+      thisPages = [_workoutPage, _nutritionPage, _messagesPage, _instructorsPage, _profilePage];
       pageNames = ['Workout Plan', 'Nutrition Plan', 'Messages', 'Instructors', 'Profile'];
       currentPage = _workoutPage; //Always workouts will be displayed first
+      thisPage = _workoutPage;
       super.initState();
     }
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
           title: Text(pageNames[_currentIndex]),
-          actions: _profilePage.topBar(context),
+          actions: thisPage.topBar(context),
         ),
         body:currentPage,
         bottomNavigationBar: BottomNavigationBar(
@@ -57,6 +62,7 @@ class HomePage extends StatefulWidget {
             setState(() {
               _currentIndex=index;
               currentPage = pages[index];
+              thisPage = thisPages[index];
             });
           },
           type: BottomNavigationBarType.fixed,

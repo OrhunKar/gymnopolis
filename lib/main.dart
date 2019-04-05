@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     InstructorsProfilePage.tag: (context) => InstructorsProfilePage(),
     TemplatesPage.tag: (context) => TemplatesPage(),
     //DayPage.tag: (context) => DayPage(),
-    ExerciseInfoPage.tag: (context) => ExerciseInfoPage(),
+    //ExerciseInfoPage.tag: (context) => ExerciseInfoPage(),
   };
 
   @override

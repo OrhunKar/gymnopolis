@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Exercise.dart';
 import 'package:gymnopolis/view/exerciseinfo_page.dart';
-import 'package:gymnopolis/view/trainee/workout_assistant.dart';
+import 'package:gymnopolis/view/trainee/workout_assistant_exercise.dart';
 
 
 class WorkoutAssistantPage extends StatefulWidget {
@@ -46,15 +46,11 @@ class ExerciseList extends StatelessWidget {
             onTap: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ExerciseInfoPage()),
+                MaterialPageRoute(builder: (context) => WorkoutAssistantExercisePage()),
               );},
             child: Padding(
               padding: const EdgeInsets.all(6.0),
-              child: Container(
-                height: 100.0,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 0.5),
-                ),
+              child: Card(
                 child: Center(
                   child: new ListTile(
                     title : new Text(_exercises[index].name, style: new TextStyle(fontSize: 22.0)),

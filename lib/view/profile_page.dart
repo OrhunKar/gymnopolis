@@ -5,8 +5,9 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:gymnopolis/model/Graph.dart';
 import 'package:gymnopolis/view/settings_page.dart';
 import 'package:gymnopolis/view/messages_page.dart';
+import 'package:gymnopolis/view/Page.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatefulWidget with Page{
   final List<charts.Series> seriesList;
   final bool animate;
 

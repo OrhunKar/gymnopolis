@@ -2,13 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/view/home_page.dart';
+import 'package:gymnopolis/view/Page.dart';
 
-class InstructorsPage extends StatefulWidget {
+class InstructorsPage extends StatefulWidget with Page{
 
 
   @override
   InstructorsPageState createState() {
     return new InstructorsPageState();
+  }
+
+  List<Widget> topBar(BuildContext context){
+    return null;
   }
 }
 

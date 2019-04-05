@@ -17,6 +17,20 @@ class Workout {
     list.add(new Day(name: "Back", exerciseList: exampleExercises()));
     list.add(new Day(name: "Legs", exerciseList: allExercises()));
     list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
 
     return list;
   }

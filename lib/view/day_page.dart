@@ -55,16 +55,12 @@ class ExerciseList extends StatelessWidget {
             onTap: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ExerciseInfoPage()),
+                MaterialPageRoute(builder: (context) => ExerciseInfoPage(_exercises[index].name)),
               );},
           child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Container(
-            height: 100.0,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 0.5),
-            ),
-              child: Center(
+            padding: const EdgeInsets.all(3.0),
+            child: Center(
+              child: Card(
                 child: new ListTile(
                     title : new Text(_exercises[index].name, style: new TextStyle(fontSize: 22.0)),
                     subtitle: new Text(_exercises[index].subtitle()),

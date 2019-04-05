@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gymnopolis/view/Page.dart';
 
 
-
-class NutritionPage extends StatelessWidget {
+class NutritionPage extends StatelessWidget with Page{
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -12,5 +12,9 @@ class NutritionPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> topBar(BuildContext context){
+    return null;
   }
 }
