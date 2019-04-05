@@ -1,6 +1,6 @@
 # Gymnopolis
 
-CS491&#x2F;492 senior project
+CS491&#x2F;492 Senior Project
 
 ## Getting Started
 
