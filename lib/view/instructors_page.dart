@@ -64,13 +64,8 @@ class InstructorCard extends StatelessWidget{
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Stack(
         children: <Widget>[
-          Container(
+          Card(
             margin: const EdgeInsets.only(right: 16.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10.0),),
-              border: Border.all(color: Colors.blueGrey),
-
-            ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -93,23 +88,30 @@ class InstructorCard extends StatelessWidget{
 
                       ),
                         SizedBox(width: 14.0,),
-                        new Text("$profession")
+                        Center(child: new Text("$profession"))
                     ],
 
                   ),
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
+                  Row(
+
                     children: <Widget>[
                       new Text("$name"),
+
+
+                    ],
+
+                  ),
+                  Row(
+                    children: <Widget>[
                       InstructorDetail(Icons.room, 'Istanbul'),
                       InstructorDetail(Icons.account_balance_wallet, '$salary\$ month'),
                       InstructorDetail(Icons.star, '$star')
                     ],
-
-                  )
+                  ),
                 ],
               ),
+
+
             ),
           ),
         ],

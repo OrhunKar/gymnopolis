@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Exercise {
   final String name;
   final int minRep;
@@ -5,10 +7,11 @@ class Exercise {
   final int minRPE;
   final int maxRPE;
   final int set;
+  final Image image;
   var equipment;
 
   Exercise({this.name, this.minRep, this.maxRep, this.minRPE, this.maxRPE,
-      this.set});
+      this.set, this.image});
 
   String subtitle() {
     if(minRep == maxRep && minRPE != maxRPE) {
