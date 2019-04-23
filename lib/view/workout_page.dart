@@ -88,7 +88,7 @@ class WorkoutState extends State<WorkoutPage> {
   // containing ReorderableItems widgets
   //
 
-  DraggingMode _draggingMode = DraggingMode.Android;
+  DraggingMode _draggingMode = DraggingMode.iOS;
 
   Widget build(BuildContext context) {
     return ReorderableList(

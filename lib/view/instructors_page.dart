@@ -20,21 +20,28 @@ class InstructorsPage extends StatefulWidget with Page{
 
 class InstructorsPageState extends State<InstructorsPage> {
    List<Trainer> _trainer = Trainer.allTrainers();
-   List<InstructorCard> cards;
-  createCardList(){
-      cards = List();
-      for (int i = 0; i < _trainer.length; ++i) {
-        String name = _trainer[i].fullname;
-        double rating = _trainer[i].rating;
-        String location = _trainer[i].location;
-        String profession = _trainer[i].profession;
-        String picture = _trainer[i].picture;
-        cards.add(InstructorCard(name, rating, profession, location, picture));
-      }
+   List<Widget> cards = new List<Widget>(); //A list of Widgets
 
-  }
+
   @override
   Widget build(BuildContext context) {
+
+    //Write for loops inside build
+    //build method always returns a widget
+    for (int i = 0; i < _trainer.length; ++i) {
+      String name = _trainer[i].fullname;
+      double rating = _trainer[i].rating;
+      String location = _trainer[i].location;
+      String profession = _trainer[i].profession;
+      String picture = _trainer[i].picture;
+      InstructorCard iCard;
+      iCard = new InstructorCard(name, rating, profession, location, picture);
+      cards.add(iCard.build(context));
+    }
+    
+    
+    
+    
     return Padding(
         padding: EdgeInsets.only(left: 15.0),
         child: SingleChildScrollView(
@@ -53,9 +60,9 @@ class InstructorsPageState extends State<InstructorsPage> {
                 shrinkWrap:true,
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
-                  children:<Widget>[
+                  children:
+                    cards,
                   //BURAYA InstructorCard() şeklinde constructorlar gelmesi lazım
-              ]
               ),
             ],
           ),
@@ -63,21 +70,24 @@ class InstructorsPageState extends State<InstructorsPage> {
     );
   }
 }
-class InstructorCard extends StatelessWidget{
-  String name;
-  bool online;
-  double star;
-  String profession;
-  String location;
-  String picture;
+
+
+
+
+class InstructorCard extends StatelessWidget{ //Online attribute deleted add it later if needed
+  final String name;
+  final double star;
+  final String profession;
+  final String location;
+  final String picture;
   InstructorCard(this.name,this.star,this.location, this.profession,this.picture);
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Stack(
         children: <Widget>[
-
-
           Card(
             margin: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
@@ -92,10 +102,8 @@ class InstructorCard extends StatelessWidget{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-
                   Row(
                     children: <Widget>[
-
                       Container(
                           width: 60.0,
                           height: 60.0,
@@ -108,21 +116,15 @@ class InstructorCard extends StatelessWidget{
                               )
 
                           ),
-
                       ),
                         SizedBox(width: 14.0,),
                         Center(child: new Text("$profession"))
                     ],
-
                   ),
                   Row(
-
                     children: <Widget>[
                       new Text("$name"),
-
-
                     ],
-
                   ),
                   Row(
                     children: <Widget>[
@@ -132,8 +134,6 @@ class InstructorCard extends StatelessWidget{
                   ),
                 ],
               ),
-
-
             ),
             ),
     ),
