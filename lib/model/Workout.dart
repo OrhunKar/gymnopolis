@@ -1,6 +1,6 @@
 import 'package:gymnopolis/model/Day.dart';
 import 'package:gymnopolis/model/Exercise.dart';
-
+import 'package:flutter/material.dart';
 class Workout {
 
   String name;
@@ -8,7 +8,7 @@ class Workout {
 
   Workout(this.name, this.instructorName);
 
-
+  final Image bench = Image.asset('benchpress.png');
   List<Day> allWorkouts()
   {
     var list = new List<Day>();

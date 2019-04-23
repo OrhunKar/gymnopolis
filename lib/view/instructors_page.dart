@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/view/home_page.dart';
 import 'package:gymnopolis/view/Page.dart';
-
+import 'package:gymnopolis/view/trainee/trainer_profile_page.dart';
+import 'package:gymnopolis/model/InstructorModels/Trainer.dart';
 class InstructorsPage extends StatefulWidget with Page{
 
 
@@ -18,7 +19,20 @@ class InstructorsPage extends StatefulWidget with Page{
 }
 
 class InstructorsPageState extends State<InstructorsPage> {
+   List<Trainer> _trainer = Trainer.allTrainers();
+   List<InstructorCard> cards;
+  createCardList(){
+      cards = List();
+      for (int i = 0; i < _trainer.length; ++i) {
+        String name = _trainer[i].fullname;
+        double rating = _trainer[i].rating;
+        String location = _trainer[i].location;
+        String profession = _trainer[i].profession;
+        String picture = _trainer[i].picture;
+        cards.add(InstructorCard(name, rating, profession, location, picture));
+      }
 
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,10 +54,7 @@ class InstructorsPageState extends State<InstructorsPage> {
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   children:<Widget>[
-              InstructorCard("Abdülrezzak Bin hayyamullah",4.5,70,"Boxing Trainer" ),
-              InstructorCard("Abdülrezzak Bin hayyamullah",4.5,70,"Boxing Trainer" ),
-              InstructorCard("Abdülrezzak Bin hayyamullah",4.5,70,"Boxing Trainer" ),
-              InstructorCard("Abdülrezzak Bin hayyamullah",4.5,70,"Boxing Trainer" ),
+                  //BURAYA InstructorCard() şeklinde constructorlar gelmesi lazım
               ]
               ),
             ],
@@ -56,28 +67,35 @@ class InstructorCard extends StatelessWidget{
   String name;
   bool online;
   double star;
-  double salary;
   String profession;
-  InstructorCard(this.name,this.star,this.salary, this.profession);
+  String location;
+  String picture;
+  InstructorCard(this.name,this.star,this.location, this.profession,this.picture);
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Stack(
         children: <Widget>[
-          Container(
-            margin: const EdgeInsets.only(right: 16.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10.0),),
-              border: Border.all(color: Colors.blueGrey),
 
-            ),
-            child: Padding(
+
+          Card(
+            margin: const EdgeInsets.only(right: 16.0),
+            child: GestureDetector(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TrainerProfilePage(),
+                    )
+                );},
+              child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+
                   Row(
                     children: <Widget>[
+
                       Container(
                           width: 60.0,
                           height: 60.0,
@@ -86,32 +104,39 @@ class InstructorCard extends StatelessWidget{
                               image: new DecorationImage(
                                   fit: BoxFit.fill,
                                   image: new NetworkImage(
-                                      "https://i.hizliresim.com/k9dbRJ.png")
+                                      "$picture")
                               )
 
                           ),
 
                       ),
                         SizedBox(width: 14.0,),
-                        new Text("$profession")
+                        Center(child: new Text("$profession"))
                     ],
 
                   ),
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
+                  Row(
+
                     children: <Widget>[
                       new Text("$name"),
-                      InstructorDetail(Icons.room, 'Istanbul'),
-                      InstructorDetail(Icons.account_balance_wallet, '$salary\$ month'),
-                      InstructorDetail(Icons.star, '$star')
+
+
                     ],
 
-                  )
+                  ),
+                  Row(
+                    children: <Widget>[
+                      InstructorDetail(Icons.room, '$location'),
+                      InstructorDetail(Icons.star, '$star')
+                    ],
+                  ),
                 ],
               ),
+
+
             ),
-          ),
+            ),
+    ),
         ],
       ),
     );

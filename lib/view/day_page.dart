@@ -62,6 +62,10 @@ class ExerciseList extends StatelessWidget {
             child: Center(
               child: Card(
                 child: new ListTile(
+                    leading: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: 20.0,
+                        child: Image.asset('assets/benchpress3.png')),
                     title : new Text(_exercises[index].name, style: new TextStyle(fontSize: 22.0)),
                     subtitle: new Text(_exercises[index].subtitle()),
 
