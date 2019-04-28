@@ -29,13 +29,14 @@ class InstructorsPageState extends State<InstructorsPage> {
     //Write for loops inside build
     //build method always returns a widget
     for (int i = 0; i < _trainer.length; ++i) {
+      int id = _trainer[i].id;
       String name = _trainer[i].fullname;
       double rating = _trainer[i].rating;
       String location = _trainer[i].location;
       String profession = _trainer[i].profession;
       String picture = _trainer[i].picture;
       InstructorCard iCard;
-      iCard = new InstructorCard(name, rating, profession, location, picture);
+      iCard = new InstructorCard(id, name, rating, location,profession , picture);
       cards.add(iCard.build(context));
     }
     
@@ -75,12 +76,13 @@ class InstructorsPageState extends State<InstructorsPage> {
 
 
 class InstructorCard extends StatelessWidget{ //Online attribute deleted add it later if needed
+  final int id;
   final String name;
   final double star;
   final String profession;
   final String location;
   final String picture;
-  InstructorCard(this.name,this.star,this.location, this.profession,this.picture);
+  InstructorCard(this.id, this.name,this.star,this.location, this.profession,this.picture);
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +96,7 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
               onTap: (){
                 Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => TrainerProfilePage(),
+                    MaterialPageRoute(builder: (context) => TrainerProfilePage(this.id),
                     )
                 );},
               child: Padding(
@@ -118,12 +120,12 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
                           ),
                       ),
                         SizedBox(width: 14.0,),
-                        Center(child: new Text("$profession"))
+                        Center(child: new Text("$name"))
                     ],
                   ),
                   Row(
                     children: <Widget>[
-                      new Text("$name"),
+                      new Text("$profession"+" Instructor"),
                     ],
                   ),
                   Row(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:gymnopolis/model/InstructorModels/Trainer.dart';
 class InstructorsProfilePage extends StatefulWidget {
   static String tag = 'instructor-profile-page';
 
