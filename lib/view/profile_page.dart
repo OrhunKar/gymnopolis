@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/model/Workout.dart';
-import 'package:gymnopolis/view/day_page.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:gymnopolis/model/Graph.dart';
 import 'package:gymnopolis/view/settings_page.dart';
-import 'package:gymnopolis/view/messages_page.dart';
 import 'package:gymnopolis/view/Page.dart';
 
 class ProfilePage extends StatefulWidget with Page{

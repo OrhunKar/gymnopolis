@@ -23,7 +23,6 @@ class DayPageState extends State<DayPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
       floatingActionButton: FloatingActionButton(
           onPressed: (){Navigator.push(
           context, MaterialPageRoute(builder: (context) => WorkoutAssistantPage(widget.name, widget.exercise)));},

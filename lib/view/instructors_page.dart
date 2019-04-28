@@ -1,7 +1,6 @@
 //Log In page design inspired from https://github.com/putraxor/flutter-login-ui
 
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/view/home_page.dart';
 import 'package:gymnopolis/view/Page.dart';
 import 'package:gymnopolis/view/trainee/trainer_profile_page.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainer.dart';

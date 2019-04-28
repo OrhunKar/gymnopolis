@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:gymnopolis/view/Page.dart';
 import 'package:gymnopolis/view/instructor/instructor_instructors_page.dart';
 import 'package:gymnopolis/view/instructor/instructor_messages_page.dart';
 import 'package:gymnopolis/view/instructor/instructor_profile_page.dart';
@@ -32,6 +32,13 @@ class InstructorHomePageState extends State<InstructorHomePage> {
 
   List<Widget> pages;
   Widget currentPage;
+
+
+
+  List<Page> thisPages;
+  Page thisPage;
+
+
   List<String> pageNames;
 
   void initState(){
@@ -42,8 +49,10 @@ class InstructorHomePageState extends State<InstructorHomePage> {
     _instructorsProfilePage = InstructorsProfilePage();
 
     pages = [_studentsPage, _templatesPage, _instructorsMessagesPage, _instructorsInstructorPage, _instructorsProfilePage];
+    thisPages = [_studentsPage, _templatesPage, _instructorsMessagesPage, _instructorsInstructorPage, _instructorsProfilePage];
     pageNames = ['Students', 'Templates', 'Messages', 'Instructors', 'Profile'];
     currentPage = _studentsPage; //Always students will be displayed first
+    thisPage = _studentsPage;
     super.initState();
   }
 
@@ -51,29 +60,10 @@ class InstructorHomePageState extends State<InstructorHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(pageNames[_currentIndex]),
-        actions: <Widget>[
-          new IconButton(icon: actionIcon,onPressed:(){
-            setState(() {
-              if ( this.actionIcon.icon == Icons.search){
-                this.actionIcon = new Icon(Icons.close);
-                this.appBarTitle = new TextField(
-                  style: new TextStyle(
-                    color: Colors.green,
-                  ),
-                  decoration: new InputDecoration(
-                      prefixIcon: new Icon(Icons.search,color: Colors.green),
-                      hintText: "Search...",
-                      hintStyle: new TextStyle(color: Colors.white)
-                  ),
-                );}
-              else {
-                this.actionIcon = new Icon(Icons.search);
-                this.appBarTitle = new Text("AppBar Title");
-              }
-            });
-          } ,)
-          ,]
+        actions: thisPage.topBar(context),
       ),
+      floatingActionButton: thisPage.floatingButton(context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: currentPage,//body: ,
       bottomNavigationBar: BottomNavigationBar(
         fixedColor: Colors.purple,
@@ -81,6 +71,7 @@ class InstructorHomePageState extends State<InstructorHomePage> {
           setState(() {
             _currentIndex=index;
             currentPage = pages[index];
+            thisPage = thisPages[index];
           });
         },
         type: BottomNavigationBarType.fixed,
@@ -112,6 +103,8 @@ class InstructorHomePageState extends State<InstructorHomePage> {
       ),
     );
   }
+
+
 }
 
 

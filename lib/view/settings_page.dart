@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/view/home_page.dart';
 
 class SettingsPage extends StatefulWidget {
   static String tag = 'login-page'; //tag for router
@@ -11,7 +10,6 @@ class _SettingsPageState extends State<SettingsPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
-    int _radioValue1 = 11;
     return Scaffold(
       appBar: AppBar(
       title: Text("Settings"),

@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/model/Workout.dart';
-import 'package:gymnopolis/view/day_page.dart';
-import 'package:gymnopolis/control/placeholder_widget.dart';
 import 'package:gymnopolis/view/nutrition_page.dart';
 import 'package:gymnopolis/view/workout_page.dart';
 import 'package:gymnopolis/view/profile_page.dart';
 import 'package:gymnopolis/view/instructors_page.dart';
 import 'package:gymnopolis/view/messages_page.dart';
 import 'package:gymnopolis/model/Graph.dart';
-import 'package:gymnopolis/view/settings_page.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:gymnopolis/view/Page.dart';
 
 class HomePage extends StatefulWidget {
@@ -57,19 +52,7 @@ class HomePage extends StatefulWidget {
           title: Text(pageNames[_currentIndex]),
           actions: thisPage.topBar(context),
         ),
-        body: PageView(
-          controller: PageController(viewportFraction: 1.0),
-          children: <Widget>[_workoutPage, _nutritionPage, _messagesPage, _instructorsPage, _profilePage],
-          onPageChanged: (int index){
-            setState(() {
-              _currentIndex=index;
-              currentPage = pages[index];
-              thisPage = thisPages[index];
-            });
-          },
-        ),
-
-        //currentPage,
+        body: currentPage, //currentPage,
         bottomNavigationBar: BottomNavigationBar(
           onTap: (int index){
             setState(() {

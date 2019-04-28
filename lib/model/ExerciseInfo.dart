@@ -1,8 +1,8 @@
 class ExerciseInfo {
   final String name;
-  final String descrpition;
+  final String description;
 
-  ExerciseInfo({this.name, this.descrpition});
+  ExerciseInfo({this.name, this.description});
 
 
 }
