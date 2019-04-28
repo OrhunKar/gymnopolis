@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gymnopolis/view/Page.dart';
 
-class InstructorsProfilePage extends StatefulWidget {
+class InstructorsProfilePage extends StatefulWidget with Page{
   static String tag = 'instructor-profile-page';
+
+  List<Widget> topBar(BuildContext context){
+    return null;
+  }
 
   createState() {
     return InstructorsProfilePageState();

@@ -5,35 +5,62 @@ class Workout {
 
   String name;
   String instructorName;
+  List<Day> days;
 
-  Workout(this.name, this.instructorName);
+  Workout(this.name, this.instructorName, this.days);
 
   final Image bench = Image.asset('benchpress.png');
+
+
+
   List<Day> allWorkouts()
   {
     var list = new List<Day>();
 
-    list.add(new Day(name: "Chest", exerciseList: exampleExercises()));
-    list.add(new Day(name: "Back", exerciseList: exampleExercises()));
-    list.add(new Day(name: "Legs", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
-    list.add(new Day(name: "Shoulder", exerciseList: allExercises()));
+    list.add(new Day("Chest", exampleExercises()));
+    list.add(new Day("Back", exampleExercises()));
+    list.add(new Day("Legs", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+
+
+
 
     return list;
   }
+
+  static List<Day> allDays()
+  {
+    var list = new List<Day>();
+
+    list.add(new Day("Chest", exampleExercises()));
+    list.add(new Day("Back", exampleExercises()));
+    list.add(new Day("Legs", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+    list.add(new Day("Shoulder", allExercises()));
+
+    return list;
+  }
+
+
 
   static List<Exercise> exampleExercises()
   {

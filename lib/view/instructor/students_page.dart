@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainee.dart';
+import 'package:gymnopolis/view/Page.dart';
 
 final List<Trainee> _trainees = Trainee.allTrainees();
 
-class StudentsPage extends StatefulWidget {
+class StudentsPage extends StatefulWidget with Page{
   static String tag = 'student-page';
+
+  List<Widget> topBar(BuildContext context){
+    return null;
+  }
 
   createState() {
     return StudentsPageState();

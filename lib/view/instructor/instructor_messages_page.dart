@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainee.dart';
+import 'package:gymnopolis/view/Page.dart';
 import 'package:gymnopolis/view/instructor/messagesPages/private_messages_page.dart';
 
 final List<Trainee> _trainees = Trainee.allTrainees();
 
-class InstructorsMessagesPage extends StatefulWidget {
+class InstructorsMessagesPage extends StatefulWidget with Page{
   static String tag = 'instructor-messages-page';
+
+  List<Widget> topBar(BuildContext context){
+    return null;
+  }
 
   createState() {
     return InstructorsMessagesPageState();

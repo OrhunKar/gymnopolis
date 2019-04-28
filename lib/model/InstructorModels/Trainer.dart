@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:gymnopolis/model/InstructorModels/Service.dart';
 class Trainer {
   final int id;
   final String picture;

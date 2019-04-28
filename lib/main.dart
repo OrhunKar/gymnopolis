@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/view/login_page.dart';
 import 'package:gymnopolis/view/home_page.dart';
-import 'package:gymnopolis/view/day_page.dart';
-import 'package:gymnopolis/view/exerciseinfo_page.dart';
 import 'package:gymnopolis/view/instructor/instructor_home_page.dart';
 import 'package:gymnopolis/view/instructor/instructor_instructors_page.dart';
 import 'package:gymnopolis/view/instructor/instructor_messages_page.dart';
 import 'package:gymnopolis/view/instructor/instructor_profile_page.dart';
-import 'package:gymnopolis/view/instructor/students_page.dart';
 import 'package:gymnopolis/view/instructor/templates_page.dart';
 
 void main() => runApp(MyApp());
