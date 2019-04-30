@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/model/InstructorModels/Trainer.dart';
 import 'package:gymnopolis/view/Page.dart';
 
 class InstructorsProfilePage extends StatefulWidget with Page{
