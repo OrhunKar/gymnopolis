@@ -7,12 +7,11 @@ class Exercise {
   int minRPE;
   int maxRPE;
   int set;
-  String image;
-  String video;
+  final Image image;
   var equipment;
 
   Exercise({this.name, this.minRep, this.maxRep, this.minRPE, this.maxRPE,
-      this.set, this.image,this.video});
+      this.set, this.image});
 
   Exercise.fromExercise(Exercise another): name = another.name, image = another.image;
 
