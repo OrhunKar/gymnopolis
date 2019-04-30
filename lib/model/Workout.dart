@@ -66,10 +66,10 @@ class Workout {
   {
     var list = new List<Exercise>();
 
-    list.add(new Exercise(name: "Bench Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/benchpress3.png',video:'9l9guSIjnZY-w'));
-    list.add(new Exercise(name: "Push Up", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/pushup.png',video:'5eSM88TFzAs-w'));
-    list.add(new Exercise(name: "Pull Up", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/pullup.png',video:'iUNoLR0pYjY-w'));
-    list.add(new Exercise(name: "Dumbell Deadlift", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/dumbelldeadlift.png',video:'tghHkZW1KBI-w'));
+    list.add(new Exercise(name: "Bench Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
+    list.add(new Exercise(name: "French Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
+    list.add(new Exercise(name: "Dumbell Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
+    list.add(new Exercise(name: "Romanian Deadlift", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
 
     return list;
   }
@@ -78,7 +78,7 @@ class Workout {
   {
     var list = new List<Exercise>();
 
-    list.add(new Exercise(name: "Bench Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/benchpress3.png',video:'9l9guSIjnZY-w'));
+    list.add(new Exercise(name: "Bench Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5));
 
     return list;
   }

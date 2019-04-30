@@ -13,7 +13,8 @@ environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
-  youtube_player: ^3.4.1
+  flutter:
+    sdk: flutter
   charts_flutter:
   zoomable_image:
   path_provider: ^0.5.0+1
@@ -53,10 +54,7 @@ flutter:
     - assets/primary-share.png
     - assets/human_wood.jpg
     - assets/benchpress3.png
-    - assets/deadlift.png
-    - assets/pullup.png
-    - assets/pushup.png
-    - assets/dumbelldeadlift.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 
