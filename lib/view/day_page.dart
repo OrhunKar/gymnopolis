@@ -23,7 +23,6 @@ class DayPageState extends State<DayPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
       floatingActionButton: FloatingActionButton(
           onPressed: (){Navigator.push(
           context, MaterialPageRoute(builder: (context) => WorkoutAssistantPage(widget.name, widget.exercise)));},
@@ -65,7 +64,7 @@ class ExerciseList extends StatelessWidget {
                     leading: CircleAvatar(
                         backgroundColor: Colors.transparent,
                         radius: 20.0,
-                        child: Image.asset('assets/benchpress3.png')),
+                        child: Image.asset(_exercises[index].image)),
                     title : new Text(_exercises[index].name, style: new TextStyle(fontSize: 22.0)),
                     subtitle: new Text(_exercises[index].subtitle()),
 

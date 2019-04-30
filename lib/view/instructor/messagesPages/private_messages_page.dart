@@ -38,7 +38,6 @@ final ThemeData kDefaultTheme = new ThemeData(
   accentColor: Colors.orangeAccent[400],
 );
 
-const String _name = "Your Name";
 
 class FriendlychatApp extends StatelessWidget {
   @override

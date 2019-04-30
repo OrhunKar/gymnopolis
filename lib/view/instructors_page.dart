@@ -1,7 +1,6 @@
 //Log In page design inspired from https://github.com/putraxor/flutter-login-ui
 
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/view/home_page.dart';
 import 'package:gymnopolis/view/Page.dart';
 import 'package:gymnopolis/view/trainee/trainer_profile_page.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainer.dart';
@@ -88,17 +87,17 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Stack(
+      child: GestureDetector(
+        onTap: (){
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TrainerProfilePage(this.id),
+              )
+          );},
+        child: Stack(
         children: <Widget>[
           Card(
-            margin: const EdgeInsets.only(right: 16.0),
-            child: GestureDetector(
-              onTap: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TrainerProfilePage(this.id),
-                    )
-                );},
+              margin: const EdgeInsets.only(right: 16.0),
               child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -137,9 +136,8 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
                 ],
               ),
             ),
-            ),
-    ),
-        ],
+            ),]
+          ),
       ),
     );
   }

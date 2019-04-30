@@ -6,9 +6,11 @@ import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:gymnopolis/model/Exercise.dart';
 import 'package:gymnopolis/model/Workout.dart';
 import 'package:gymnopolis/view/day_page.dart';
-import 'package:gymnopolis/control/placeholder_widget.dart';
-import 'package:gymnopolis/view/nutrition_page.dart';
 import 'package:gymnopolis/view/Page.dart';
+
+
+
+
 
 class WorkoutPage extends StatefulWidget with Page{
   static String tag = 'workout-page';
@@ -41,13 +43,14 @@ enum DraggingMode {
 
 
 class WorkoutState extends State<WorkoutPage> {
-  Workout _workout = Workout("workout1", "Can Hoca");
+
+  Workout _workout = Workout("workout1", "Can Hoca", Workout.allDays());
 
   List<ItemData> _items;
 
   WorkoutState() {
     _items = List();
-    for (int i = 0; i < _workout.allWorkouts().length; ++i) {
+    for(int i = 0; i < _workout.allWorkouts().length; ++i) {
       String number = (i+1).toString();
       String label = _workout.allWorkouts()[i].name;
       String instructorName = _workout.instructorName;
@@ -88,7 +91,7 @@ class WorkoutState extends State<WorkoutPage> {
   // containing ReorderableItems widgets
   //
 
-  DraggingMode _draggingMode = DraggingMode.iOS;
+  DraggingMode _draggingMode = DraggingMode.Android;
 
   Widget build(BuildContext context) {
     return ReorderableList(

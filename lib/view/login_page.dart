@@ -1,10 +1,7 @@
 //Log In page design inspired from https://github.com/putraxor/flutter-login-ui
 
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/view/home_page.dart';
 import 'package:flutter/services.dart';
-import 'package:gymnopolis/view/instructor/instructor_home_page.dart';
-import 'package:gymnopolis/ExternalStyles/TabIndicationPainter.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page'; //tag for router

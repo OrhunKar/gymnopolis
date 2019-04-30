@@ -1,84 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_youtube_view/flutter_youtube_view.dart';
+
+
 
 class ExerciseInfoPage extends StatefulWidget {
+  static String tag = 'exerciseinfo-page';
+
+  final name;
+
+  ExerciseInfoPage(this.name);
+
   @override
-  _MyAppState createState() => _MyAppState();
+  ExerciseInfoPageState createState() {
+    return ExerciseInfoPageState();
+  }
+
+
 }
 
-class _MyAppState extends State<ExerciseInfoPage>
-    implements YouTubePlayerListener {
-  double _currentVideoSecond = 0.0;
-  String _playerState = "";
-  FlutterYoutubeViewController _controller;
-
-  @override
-  void onCurrentSecond(double second) {
-    print("onCurrentSecond second = $second");
-    _currentVideoSecond = second;
-  }
-
-  @override
-  void onError(String error) {
-    print("onError error = $error");
-  }
-
-  @override
-  void onReady() {
-    print("onReady");
-  }
-
-  @override
-  void onStateChange(String state) {
-    print("onStateChange state = $state");
-    setState(() {
-      _playerState = state;
-    });
-  }
-
-  @override
-  void onVideoDuration(double duration) {
-    print("onVideoDuration duration = $duration");
-  }
-
-  void _onYoutubeCreated(FlutterYoutubeViewController controller) {
-    this._controller = controller;
-  }
-
-  void _loadOrCueVideo() {
-    _controller.loadOrCueVideo('gcj2RUWQZ60', _currentVideoSecond);
-  }
-
+class ExerciseInfoPageState extends State<ExerciseInfoPage>{
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-        appBar: AppBar(
-            title: const Text('Default UI')
-        ),
-        body: Stack(
-          children: <Widget>[
-            Container(
-                child: FlutterYoutubeView(
-                  onViewCreated: _onYoutubeCreated,
-                  listener: this,
-                  params: YoutubeParam(
-                      videoId: 'gcj2RUWQZ60', showUI: true, startSeconds: 5 * 60.0),
-                )),
-            Center(
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      'Current state: $_playerState',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    RaisedButton(
-                      onPressed: _loadOrCueVideo,
-                      child: Text('Click reload video'),
-                    ),
-                  ],
-                )
-            )
-          ],
-        ));
+      appBar: AppBar(
+        title: Text(widget.name),
+      ),
+      body: new Text("The Bench Press is a full body, compound exercise. It works your chest, shoulders and triceps most. It's the most effective exercise to gain upper-body strength and muscle mass because it's the upper-body exercise you'll lift most weight on (more than Overhead Press). The bigger your bench, the bigger your chest."), //List displayed here
+    );
   }
 }
+

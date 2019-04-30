@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Exercise.dart';
-import 'package:gymnopolis/view/exerciseinfo_page.dart';
 import 'package:gymnopolis/view/trainee/workout_assistant_exercise.dart';
 
 

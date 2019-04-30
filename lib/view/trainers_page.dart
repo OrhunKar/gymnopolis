@@ -1,7 +1,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/view/home_page.dart';
 
 class TrainersPage extends StatelessWidget {
 

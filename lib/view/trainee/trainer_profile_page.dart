@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainer.dart';
 import 'package:gymnopolis/model/InstructorModels/Certificates.dart';
+
 class TrainerProfilePage extends StatefulWidget {
   static String tag = 'trainer-profile-page';
   int id;

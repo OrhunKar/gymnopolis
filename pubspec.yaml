@@ -55,7 +55,10 @@ flutter:
     - assets/primary-share.png
     - assets/human_wood.jpg
     - assets/benchpress3.png
-    
+    - assets/deadlift.png
+    - assets/pullup.png
+    - assets/pushup.png
+    - assets/dumbelldeadlift.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 
