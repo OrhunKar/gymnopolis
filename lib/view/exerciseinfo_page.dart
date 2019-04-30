@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 
 class ExerciseInfoPage extends StatefulWidget {
   static String tag = 'exerciseinfo-page';
+  
+  var vari;
+  Exercise exercise;
+
 
   final name;
+
 
   ExerciseInfoPage(this.name);
 
