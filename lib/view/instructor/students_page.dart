@@ -62,7 +62,9 @@ class TraineeSearch extends SearchDelegate<Trainee>{
     // TODO: implement buildResults
     final results = _trainees.where((a) => a.name.toLowerCase().contains(query));
 
-    return HelperWidget.pageContent(context, results);
+
+
+    return HelperWidget.pageContent(context, results.toList());
   }
 
   @override
@@ -70,7 +72,7 @@ class TraineeSearch extends SearchDelegate<Trainee>{
     // TODO: implement buildSuggestions
     final results = _trainees.where((a) => a.name.toLowerCase().contains(query));
 
-    return HelperWidget.pageContent(context, results);
+    return HelperWidget.pageContent(context, results.toList());
 
   }
 
