@@ -4,7 +4,7 @@ import 'package:gymnopolis/model/Exercise.dart';
 
 class ExerciseInfoPage extends StatefulWidget {
   static String tag = 'exerciseinfo-page';
-
+  var vari;
   Exercise exercise;
 
   ExerciseInfoPage(this.exercise);
