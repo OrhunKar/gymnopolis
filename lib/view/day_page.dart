@@ -54,7 +54,7 @@ class ExerciseList extends StatelessWidget {
             onTap: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ExerciseInfoPage(_exercises[index].name)),
+                MaterialPageRoute(builder: (context) => ExerciseInfoPage(_exercises[index])),
               );},
           child: Padding(
             padding: const EdgeInsets.all(3.0),
