@@ -97,43 +97,43 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
         child: Stack(
         children: <Widget>[
           Card(
-              margin: const EdgeInsets.only(right: 16.0),
-              child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Container(
-                          width: 60.0,
-                          height: 60.0,
-                          decoration: new BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: new DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: new NetworkImage(
-                                      "$picture")
-                              )
+            margin: const EdgeInsets.only(right: 16.0),
+            child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                        width: 60.0,
+                        height: 60.0,
+                        decoration: new BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: new DecorationImage(
+                                fit: BoxFit.fill,
+                                image: new NetworkImage(
+                                    "$picture")
+                            )
 
-                          ),
-                      ),
-                        SizedBox(width: 14.0,),
-                        Center(child: new Text("$name"))
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      new Text("$profession"+" Instructor"),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      InstructorDetail(Icons.room, '$location'),
-                      InstructorDetail(Icons.star, '$star')
-                    ],
-                  ),
-                ],
+                        ),
+                    ),
+                      SizedBox(width: 14.0,),
+                      Center(child: new Text("$name"))
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    new Text("$profession"+" Instructor"),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    InstructorDetail(Icons.room, '$location'),
+                    InstructorDetail(Icons.star, '$star')
+                  ],
+                ),
+              ],
               ),
             ),
             ),]
