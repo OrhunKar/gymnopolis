@@ -50,7 +50,7 @@ class WorkoutState extends State<WorkoutPage> {
 
   WorkoutState() {
     _items = List();
-    for (int i = 0; i < _workout.allWorkouts().length; ++i) {
+    for(int i = 0; i < _workout.allWorkouts().length; ++i) {
       String number = (i+1).toString();
       String label = _workout.allWorkouts()[i].name;
       String instructorName = _workout.instructorName;
