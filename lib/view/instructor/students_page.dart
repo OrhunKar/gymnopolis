@@ -35,7 +35,7 @@ class StudentsPageState extends State<StudentsPage> {
             );*/},
           child: new ListTile(
               title : new Text(_trainees[index].name),
-              subtitle: new Text(_trainees[index].lastActivity),
+              subtitle: new Text(_trainees[index].lastActivity.toString()),
           ),
         ) ;
       },
