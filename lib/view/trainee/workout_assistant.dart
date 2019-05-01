@@ -18,6 +18,34 @@ class WorkoutAssistantPage extends StatefulWidget {
 }
 
 class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+
+          content: new Text("Would you like to complete and save your workout?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   Stopwatch watch = new Stopwatch();
   Timer timer;
 
@@ -76,6 +104,9 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
   Widget build(BuildContext context) {
   startWatch();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: _showDialog ,
+          child: Icon(Icons.check)),
         appBar: AppBar(
         title: Text(elapsedTime),
 
