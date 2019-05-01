@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Exercise.dart';
 import 'package:gymnopolis/view/trainee/workout_assistant_exercise.dart';
@@ -16,18 +18,73 @@ class WorkoutAssistantPage extends StatefulWidget {
 }
 
 class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
+  Stopwatch watch = new Stopwatch();
+  Timer timer;
+
+  String elapsedTime = '';
+  startWatch() {
+    watch.start();
+    timer = new Timer.periodic(new Duration(milliseconds: 1000), updateTime);
+  }
+
+  stopWatch() {
+    watch.stop();
+    setTime();
+  }
+
+  resetWatch() {
+    watch.reset();
+    setTime();
+  }
+
+  setTime() {
+    var timeSoFar = watch.elapsedMilliseconds;
+    setState(() {
+      elapsedTime = transformMilliSeconds(timeSoFar);
+
+    });
+  }
+
+  transformMilliSeconds(int milliseconds) {
+    //Thanks to Andrew
+    int hundreds = (milliseconds / 10).truncate();
+    int seconds = (hundreds / 100).truncate();
+    int minutes = (seconds / 60).truncate();
+
+    String minutesStr = (minutes % 60).toString().padLeft(2, '0');
+    String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+
+    return "$minutesStr:$secondsStr";
+  }
+  updateTime(Timer timer) {
+    if (watch.isRunning) {
+      var milliseconds = watch.elapsedMilliseconds;
+      int hundreds = (milliseconds / 10).truncate();
+      int seconds = (hundreds / 100).truncate();
+      int minutes = (seconds / 60).truncate();
+      setState(() {
+        elapsedTime = transformMilliSeconds(watch.elapsedMilliseconds);
+        if (seconds > 59) {
+          seconds = seconds - (59 * minutes);
+          seconds = seconds - minutes;
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-
+  startWatch();
     return Scaffold(
         appBar: AppBar(
-        title: Text(widget.name),
+        title: Text(elapsedTime),
 
       ),
       body: new ExerciseList(widget.exercises), //List displayed her
     );
   }
+
+
 }
 
 class ExerciseList extends StatelessWidget {
