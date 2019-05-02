@@ -26,10 +26,11 @@ class TemplateWorkoutPage extends StatefulWidget {
 class TemplateWorkoutState extends State<TemplateWorkoutPage> {
 
   TemplateWorkoutState();
+  int day = 1;
+
 
   @override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
       appBar: AppBar(
@@ -42,11 +43,19 @@ class TemplateWorkoutState extends State<TemplateWorkoutPage> {
             } ,),
             new IconButton(icon: new Icon(Icons.add),onPressed:(){
             setState(() {
-              widget.workout.days.add(new Day("Day ${math.Random().nextInt(100)}", new List<Exercise>()));
+              widget.workout.days.add(new Day("Day $day", new List<Exercise>()));
+              day = day + 1;
             });
             } ,)
           ]
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.check)
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: ListView.builder(
         itemCount: widget.workout.days.length,
         itemBuilder: (context, index) {
@@ -66,7 +75,7 @@ class TemplateWorkoutState extends State<TemplateWorkoutPage> {
 
               // Then show a snackbar!
               Scaffold.of(context)
-                  .showSnackBar(SnackBar(content: Text("$item dismissed")));
+                  .showSnackBar(SnackBar(content: Text("$item deleted")));
             },
             // Show a red background as the item is swiped away
             background: Container(color: Colors.redAccent),

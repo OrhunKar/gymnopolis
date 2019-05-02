@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymnopolis/controller/Engine.dart';
 import 'package:gymnopolis/model/Day.dart';
 import 'package:gymnopolis/model/InstructorModels/Template.dart';
 import 'package:gymnopolis/model/Workout.dart';
@@ -10,10 +11,6 @@ import 'dart:math' as math;
 
 class TemplatesPage extends StatefulWidget with Page{
   static String tag = 'templates-page';
-
-  static List<Template> templates = Template.allTemplates();
-
-  String creationName;
 
   List<Widget> topBar(BuildContext context){
     return <Widget>[
@@ -41,10 +38,10 @@ class TemplatesPage extends StatefulWidget with Page{
               decoration: new InputDecoration(
                   hintText: 'eg. Upper Body Workout'),
               onEditingComplete: (){
-                TemplatesPage.templates.add(new Template(name: myController.text, workout: new Workout("Fatty", "PlaceHolder Inst", List<Day>())));
+                Engine.allTemplates.add(new Template(name: myController.text, workout: new Workout("Fatty", "PlaceHolder Inst", List<Day>())));
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => TemplateWorkoutPage(templates.last.name, templates.last.workout)));
+                    builder: (context) => TemplateWorkoutPage(Engine.allTemplates.last.name, Engine.allTemplates.last.workout)));
                 },
 
             ),
@@ -65,37 +62,7 @@ class TemplatesPageState extends State<TemplatesPage> {
 
 
   Widget build(BuildContext context) {
-    return new GridView.builder(
-      itemCount: TemplatesPage.templates.length,
-      gridDelegate:
-      new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-      itemBuilder: (BuildContext context, int index) {
-        return new GestureDetector(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: new Card(
-              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(1.0),
-              elevation: 5.0,
-              child: Column(
-                children: <Widget>[
-                  new Container(
-                    alignment: Alignment.bottomCenter,
-                    child: new Text(TemplatesPage.templates[index].name,
-                      style: TextStyle(color: Colors.white, fontSize: 20.0),),
-                  ),
-                  new Container(
-                    alignment: Alignment.center,
-                    child: new Image.asset('assets/benchpress3.png'),
-                  )
-                ],
-              ),
-            ),
-          ),
-        onTap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => TemplateWorkoutPage(TemplatesPage.templates[index].name, TemplatesPage.templates[index].workout)));
-        },
-      );
-    });
+    return builderFunc(context, Engine.allTemplates.toList());
   }
 }
 
@@ -129,81 +96,55 @@ class TemplateSearch extends SearchDelegate<Template>{
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
     //This is same as the suggestions part this method got triggered when search icon pressed on the keyboard
-    final results = TemplatesPage.templates.where((a) => a.name.toLowerCase().contains(query));
+    final results = Engine.allTemplates.where((a) => a.name.toLowerCase().contains(query));
 
 
-    return GridView.builder(
-        itemCount: results.length,
-        gridDelegate:
-        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemBuilder: (BuildContext context, int index) {
-          return new GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Card(
-                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(1.0),
-                elevation: 5.0,
-                child: Column(
-                  children: <Widget>[
-                    new Container(
-                      alignment: Alignment.bottomCenter,
-                      child: new Text(results.toList()[index].name,
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),),
-                    ),
-                    new Container(
-                      alignment: Alignment.center,
-                      child: new Image.asset('assets/benchpress3.png'),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => TemplateWorkoutPage(results.toList()[index].name, results.toList()[index].workout)));
-            },
-          );
-        });
+    return builderFunc(context, results.toList());
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     // TODO: implement buildSuggestions
 
-    final results = TemplatesPage.templates.where((a) => a.name.toLowerCase().contains(query));
+    final results = Engine.allTemplates.where((a) => a.name.toLowerCase().contains(query));
 
 
-    return GridView.builder(
-        itemCount: results.length,
-        gridDelegate:
-        new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-        itemBuilder: (BuildContext context, int index) {
-          return new GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: new Card(
-                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(1.0),
-                elevation: 5.0,
-                child: Column(
-                  children: <Widget>[
-                    new Container(
-                      alignment: Alignment.bottomCenter,
-                      child: new Text(results.toList()[index].name,
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),),
-                    ),
-                    new Container(
-                      alignment: Alignment.center,
-                      child: new Image.asset('assets/benchpress3.png'),
-                    )
-                  ],
-                ),
+    return builderFunc(context, results.toList());
+  }
+}
+
+Widget builderFunc(BuildContext context, List results){
+  return GridView.builder(
+      itemCount: results.length,
+      gridDelegate:
+      new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+      itemBuilder: (BuildContext context, int index) {
+        return new GestureDetector(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: new Card(
+              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(1.0),
+              elevation: 5.0,
+              child: Column(
+                children: <Widget>[
+                  new Container(
+                    alignment: Alignment.bottomCenter,
+                    child: new Text(results.toList()[index].name,
+                      style: TextStyle(color: Colors.white, fontSize: 20.0),),
+                  ),
+                  new Container(
+                    alignment: Alignment.center,
+                    child: new Image.asset('assets/benchpress3.png'),
+                  )
+                ],
               ),
             ),
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => TemplateWorkoutPage(results.toList()[index].name, results.toList()[index].workout)));
-            },
-          );
-        });
-  }
+          ),
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => TemplateWorkoutPage(results.toList()[index].name, results.toList()[index].workout)));
+          },
+        );
+      });
 }
 
 
