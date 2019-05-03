@@ -26,6 +26,7 @@ class Graph {
         domainFn: (LinearSales sales, _) => sales.year,
         measureFn: (LinearSales sales, _) => sales.sales,
         data: data,
+        labelAccessorFn: (LinearSales row, _) => '${row.year}: ${row.sales}',
       )
     ];
   }

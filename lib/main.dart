@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/view/login_page.dart';
+//import 'package:gymnopolis/view/login_page.dart';
+import 'package:gymnopolis/StyleLoginPackage/ui/login_page.dart';
 import 'package:gymnopolis/view/home_page.dart';
 import 'package:gymnopolis/view/instructor/instructor_home_page.dart';
 import 'package:gymnopolis/view/instructor/instructor_instructors_page.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
   final routes = <String, WidgetBuilder>{
-    LoginPage.tag: (context) => LoginPage(),
+    //LoginPage.tag: (context) => LoginPage(),
     HomePage.tag: (context) => HomePage(),
     InstructorHomePage.tag: (context) => InstructorHomePage(),
     InstructorsInstructorPage.tag: (context) => InstructorsInstructorPage(),

@@ -20,4 +20,16 @@ class Trainee {
 
     return list;
   }
+
+  static List measurements(){
+    var list = new List();
+
+    list.add(90);
+    list.add(60);
+    list.add(90);
+    list.add(55);
+    list.add(40);
+
+    return list;
+  }
 }
