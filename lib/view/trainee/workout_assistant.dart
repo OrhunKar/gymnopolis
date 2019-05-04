@@ -38,7 +38,37 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
             new FlatButton(
               child: new Text("Yes"),
               onPressed: () {
+                stopWatch();
+                Navigator.popUntil(context, ModalRoute.withName('home-page'));
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  void _showDialog2() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+
+          content: new Text("If you exit your workout will not be saved. Would you like to exit anyway?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("No"),
+              onPressed: () {
                 Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                stopWatch();
+                Navigator.popUntil(context, ModalRoute.withName('home-page'));
               },
             ),
           ],
@@ -103,15 +133,20 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
   @override
   Widget build(BuildContext context) {
   startWatch();
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-          onPressed: _showDialog ,
-          child: Icon(Icons.check)),
-        appBar: AppBar(
-        title: Text(elapsedTime),
+    return new WillPopScope(
+      onWillPop: (){
+        _showDialog2();
+      },
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+            onPressed: _showDialog ,
+            child: Icon(Icons.check)),
+          appBar: AppBar(
+          title: Text(elapsedTime),
 
+        ),
+        body: new ExerciseList(widget.exercises), //List displayed her
       ),
-      body: new ExerciseList(widget.exercises), //List displayed her
     );
   }
 
@@ -133,7 +168,7 @@ class ExerciseList extends StatelessWidget {
             onTap: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => WorkoutAssistantExercisePage()),
+                MaterialPageRoute(builder: (context) => WorkoutAssistantExercisePage(_exercises[index])),
               );},
             child: Padding(
               padding: const EdgeInsets.all(6.0),
