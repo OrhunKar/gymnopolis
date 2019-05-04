@@ -100,7 +100,49 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
             margin: const EdgeInsets.only(right: 16.0),
             child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
+            child: Row(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Container(
+                      width: 100.0,
+                      height: 100.0,
+                      decoration: new BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image: new NetworkImage(
+                                  "$picture")
+                          )
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    new Text("$name"),
+                    new Text("$profession"+" Instructor"),
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          height: 150.0,
+                          width: 30.0,
+                        ),
+
+
+                      ],
+                    )
+                  ],
+                )
+              ],
+            )
+
+
+
+
+
+
+              /*Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
@@ -134,7 +176,7 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
                   ],
                 ),
               ],
-              ),
+              ),*/
             ),
             ),]
           ),

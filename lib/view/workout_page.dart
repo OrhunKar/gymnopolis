@@ -201,45 +201,43 @@ class Item extends StatelessWidget {
     )
         : Container();
 
-    Widget content = Container(
-      decoration: decoration,
-      child: Card(
-        child: GestureDetector(
-          onTap: (){
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DayPage(data.title, data.exercise),
-                )
-            );},
-          child: SafeArea(
-              top: false,
-              bottom: false,
-              child: Opacity(
-                // hide content for placeholder
-                opacity: state == ReorderableItemState.placeholder ? 0.0 : 1.0,
-                child: IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Expanded(
-                          child: Padding(
-                            padding:
-                            EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
-                            child: ListTile(
-                              title: new Text(data.title, style: new TextStyle(fontSize: 22.0)),
-                              subtitle: new Text(data.instructorName , style: new TextStyle(fontStyle: FontStyle.italic)),
-                              leading: new CircleAvatar(
-                                child: new Text(data.leadingNumber)
-                              ),
+    Widget content = Card(
+      //color: Color(0xFFfbab66),
+      child: GestureDetector(
+        onTap: (){
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DayPage(data.title, data.exercise),
+              )
+          );},
+        child: SafeArea(
+            top: false,
+            bottom: false,
+            child: Opacity(
+              // hide content for placeholder
+              opacity: state == ReorderableItemState.placeholder ? 0.0 : 1.0,
+              child: IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                        child: Padding(
+                          padding:
+                          EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
+                          child: ListTile(
+                            title: new Text(data.title, style: new TextStyle(fontSize: 22.0)),
+                            subtitle: new Text(data.instructorName , style: new TextStyle(fontStyle: FontStyle.italic)),
+                            leading: new CircleAvatar(
+                              child: new Text(data.leadingNumber)
                             ),
-                          )),
-                      // Triggers the reordering
-                      dragHandle,
-                    ],
-                  ),
+                          ),
+                        )),
+                    // Triggers the reordering
+                    dragHandle,
+                  ],
                 ),
-              )),
-        ),
+              ),
+            )),
       ),
     );
 

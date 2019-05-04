@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gymnopolis/StyleLoginPackage/style/theme.dart' as Theme;
 import 'package:gymnopolis/StyleLoginPackage/utils/bubble_indication_painter.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -80,6 +81,19 @@ class _LoginPageState extends State<LoginPage>
                           height: 191.0,
                           fit: BoxFit.fill,
                           image: new AssetImage('assets/login_logo.png')),
+                    ),
+                    TyperAnimatedTextKit(
+                      text: [
+                        "GYMNOPOLIS",
+                      ],
+                      textStyle: TextStyle(
+                          color: Colors.purple,
+                          fontSize: 50.0,
+                          fontFamily: "Canterbury"
+                      ),
+                      //textAlign: TextAlign.start,
+                      isRepeatingAnimation: false,
+                      //alignment: AlignmentDirectional.topStart // or Alignment.topLeft
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
