@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.purple,
         canvasColor: Colors.grey[100],
         fontFamily: 'Nunito',
+
       ),
       home: LoginPage(),
       routes: routes,
