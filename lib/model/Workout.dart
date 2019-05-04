@@ -9,31 +9,20 @@ class Workout {
 
   Workout(this.name, this.instructorName, this.days);
 
-  final Image bench = Image.asset('benchpress.png');
 
 
+  static Workout exampleWorkout(){
+    return Workout('ExampleWorkoutName', 'PlaceHolderTrainerName', allDays());
+  }
 
   List<Day> allWorkouts()
   {
     var list = new List<Day>();
 
-    list.add(new Day("Chest", exampleExercises()));
-    list.add(new Day("Back", exampleExercises()));
-    list.add(new Day("Legs", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-
-
-
+    list.add(new Day("Ex1", exampleExercises()));
+    list.add(new Day("Ex2", exampleExercises()));
+    list.add(new Day("Ex3", allExercises()));
+    list.add(new Day("Ex4", allExercises()));
 
     return list;
   }
@@ -45,16 +34,6 @@ class Workout {
     list.add(new Day("Chest", exampleExercises()));
     list.add(new Day("Back", exampleExercises()));
     list.add(new Day("Legs", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
-    list.add(new Day("Shoulder", allExercises()));
     list.add(new Day("Shoulder", allExercises()));
 
     return list;

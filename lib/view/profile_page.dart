@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:gymnopolis/view/settings_page.dart';
 import 'package:gymnopolis/view/Page.dart';
+import 'package:human_anatomy/human_anatomy.dart';
+
 
 class ProfilePage extends StatefulWidget with Page{
   final List<charts.Series> seriesList;
@@ -38,16 +40,56 @@ class ProfilePageState extends State<ProfilePage>{
     );
   }*/
 
+
+  var _finalBodyPartList = [];
+
+  
   @override
   Widget build(BuildContext context) {
+
+    print(_finalBodyPartList.length);
+
     return SingleChildScrollView(
-        child: Stack(
+        child: Column(
           children: <Widget>[
-            Image.asset(
-              'assets/human_wood.jpg',
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: HumanAnatomy(
+                    onChanged: bodyPartList,
+                  )
+                ),
+                Container(
+                  child: Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                        itemCount: _finalBodyPartList.length,
+                        itemBuilder: (BuildContext context, int index){
+                          return Text(
+                              'test'
+                          );
+                        }),
+                  ),
+                ),
+              ],
             ),
             new Padding(
-              padding: new EdgeInsets.all(32.0),
+              padding: new EdgeInsets.all(8.0),
+              child: new SizedBox(
+                height: 200.0,
+                child: new charts.LineChart(widget.seriesList, animate: widget.animate),
+              ),
+            ),
+            new Padding(
+              padding: new EdgeInsets.all(8.0),
+              child: new SizedBox(
+                height: 200.0,
+                child: new charts.LineChart(widget.seriesList, animate: widget.animate),
+              ),
+            ),
+            new Padding(
+              padding: new EdgeInsets.all(8.0),
               child: new SizedBox(
                 height: 200.0,
                 child: new charts.LineChart(widget.seriesList, animate: widget.animate),
@@ -56,6 +98,11 @@ class ProfilePageState extends State<ProfilePage>{
           ],
         ),
       );
+
+    
+  }
+  void bodyPartList(List value) {
+    _finalBodyPartList = value;
   }
 
 }
