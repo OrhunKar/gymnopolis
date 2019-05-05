@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:floating_bubble/floating_bubble.dart';
 import 'package:gymnopolis/model/Exercise.dart';
+import 'package:gymnopolis/model/InstructorModels/Service.dart';
 
 class WorkoutAssistantExercisePage extends StatefulWidget{
   Exercise exercise;
@@ -81,3 +82,4 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
       );
   }
 }
+
