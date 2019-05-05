@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gymnopolis/model/InstructorModels/Service.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainer.dart';
 import 'package:gymnopolis/model/InstructorModels/Certificates.dart';
+import 'package:gymnopolis/view/trainee/service_page.dart';
 
 class TrainerProfilePage extends StatefulWidget {
   static String tag = 'trainer-profile-page';
@@ -135,9 +137,49 @@ class TrainerProfilePageState extends State<TrainerProfilePage> {
                   ],
                 ),
               ),
+            SingleChildScrollView(child: ServiceList(widget.t))
+
             ],
+
           ),
         ),
+    );
+  }
+}
+class ServiceList extends StatelessWidget {
+
+  final Trainer t;
+
+  ServiceList(this.t);
+
+
+  @override
+  Widget build(BuildContext context) {
+    List<Service> services = t.services;
+    return new ListView.builder(
+      itemCount: services.length,
+      itemBuilder: (BuildContext context, int index){
+        return new GestureDetector(
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ServicePage(services[index])),
+              );},
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Center(
+                child: Card(
+                  child: new ListTile(
+
+                    title : new Text(services[index].name, style: new TextStyle(fontSize: 22.0)),
+
+
+                  ),
+                ),
+              ),
+            )) ;
+      },
+      padding: new EdgeInsets.symmetric(vertical: 8.0),
     );
   }
 }

@@ -33,7 +33,6 @@ class TemplateWorkoutState extends State<TemplateWorkoutPage> {
   Widget build(BuildContext context) {
 
 
-
     return Scaffold(
       appBar: AppBar(
           title: Text(widget.name),
@@ -41,6 +40,7 @@ class TemplateWorkoutState extends State<TemplateWorkoutPage> {
 
             new IconButton(icon: new Icon(Icons.info),onPressed:(){
               setState(() {
+
 
               });
             } ,),
