@@ -32,10 +32,13 @@ class TemplateWorkoutState extends State<TemplateWorkoutPage> {
   @override
   Widget build(BuildContext context) {
 
+
+
     return Scaffold(
       appBar: AppBar(
           title: Text(widget.name),
           actions: <Widget>[
+
             new IconButton(icon: new Icon(Icons.info),onPressed:(){
               setState(() {
 
@@ -129,4 +132,5 @@ class TemplateWorkoutState extends State<TemplateWorkoutPage> {
       )*/
     );
   }
+
 }

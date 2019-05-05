@@ -33,13 +33,70 @@ class TemplateDayState extends State<TemplateDayPage>{
     ExerciseBankPage.selectedExercises = new List<Exercise>();
 
     currentDay.exerciseList = items;
-
+    void _showDialog2() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("Default Values"),
+            content: Column(
+              children: <Widget>[
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "eg. 3",
+                    labelText: 'Number of sets per exercise',
+                  ),
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "eg. 12",
+                    labelText: 'Maximum rep count',
+                  ),
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "integer between 1-10",
+                    labelText: 'Aimed RPE',
+                  ),
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "eg. 30",
+                    labelText: 'Rest time in seconds',
+                  ),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("Confirm"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
           title: Text(widget.name),
           actions: <Widget>[
+            new IconButton(icon: new Icon(Icons.settings),onPressed:(){
+              setState(() {
+                _showDialog2();
+              });
+            } ,),
             new IconButton(icon: new Icon(Icons.add),onPressed:(){
               setState(() {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseBankPage()));
@@ -77,6 +134,7 @@ class TemplateDayState extends State<TemplateDayPage>{
             },
             // Show a red background as the item is swiped away
             background: Container(color: Colors.red),
+
             child: ListTile(
               title: Text('$item'),
             ),
