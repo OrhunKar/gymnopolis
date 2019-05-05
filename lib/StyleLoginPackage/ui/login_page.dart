@@ -82,19 +82,6 @@ class _LoginPageState extends State<LoginPage>
                           fit: BoxFit.fill,
                           image: new AssetImage('assets/login_logo.png')),
                     ),
-                    TyperAnimatedTextKit(
-                      text: [
-                        "GYMNOPOLIS",
-                      ],
-                      textStyle: TextStyle(
-                          color: Colors.purple,
-                          fontSize: 50.0,
-                          fontFamily: "Canterbury"
-                      ),
-                      //textAlign: TextAlign.start,
-                      isRepeatingAnimation: false,
-                      //alignment: AlignmentDirectional.topStart // or Alignment.topLeft
-                    ),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
                       child: _buildMenuBar(context),
