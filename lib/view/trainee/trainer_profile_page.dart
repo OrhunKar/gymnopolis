@@ -137,7 +137,11 @@ class TrainerProfilePageState extends State<TrainerProfilePage> {
                   ],
                 ),
               ),
-            SingleChildScrollView(child: ServiceList(widget.t))
+              Column(
+                children: <Widget>[
+                  ServiceList(widget.t)
+                ],
+              )
 
             ],
 
@@ -157,6 +161,7 @@ class ServiceList extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Service> services = t.services;
     return new ListView.builder(
+      shrinkWrap: true,
       itemCount: services.length,
       itemBuilder: (BuildContext context, int index){
         return new GestureDetector(

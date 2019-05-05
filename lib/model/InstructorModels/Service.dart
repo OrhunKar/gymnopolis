@@ -7,6 +7,7 @@ class Service {
   double rating;
   double cost;
   Service(this.id,this.name,  this.description, this.rating, this.cost);
+
   static List<Service> canServices()
   {
     var list = new List<Service>();
