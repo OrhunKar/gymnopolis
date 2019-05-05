@@ -101,6 +101,7 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
             child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
                   children: <Widget>[
@@ -120,18 +121,21 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
                 ),
                 Column(
                   children: <Widget>[
-                    new Text("$name"),
-                    new Text("$profession"+" Instructor"),
+                    new Text("$name",style: TextStyle(fontSize: 20),),
+                    new Text("$profession"+" Instructor",style: TextStyle(fontSize: 20,fontStyle: FontStyle.italic),),
                     Row(
                       children: <Widget>[
-                        Container(
-                          height: 150.0,
-                          width: 30.0,
-                        ),
-
-
+                        InstructorDetail(Icons.message, '9'),
+                        InstructorDetail(Icons.event_available, '$star'),
+                        InstructorDetail(Icons.tag_faces, '8.5')
                       ],
-                    )
+                    ),
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    new Icon(Icons.location_city),
+                    new Text('$location')
                   ],
                 )
               ],
@@ -195,7 +199,7 @@ class InstructorDetail extends StatelessWidget{
       label: Text(label),
       labelStyle: TextStyle(color: Colors.black, fontSize: 14.0),
       backgroundColor: Colors.white,
-      avatar: Icon(iconData, size: 14.0),
+      avatar: Icon(iconData, size: 25.0, color: Colors.purple,),
     );
   }
 }
