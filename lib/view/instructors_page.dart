@@ -30,12 +30,14 @@ class InstructorsPageState extends State<InstructorsPage> {
     for (int i = 0; i < _trainer.length; ++i) {
       int id = _trainer[i].id;
       String name = _trainer[i].fullname;
-      double rating = _trainer[i].rating;
+      double reponsive_rating = _trainer[i].responsive_rating;
+      double effective_rating = _trainer[i].effective_rating;
+      double overall_rating = _trainer[i].overall_rating;
       String location = _trainer[i].location;
       String profession = _trainer[i].profession;
       String picture = _trainer[i].picture;
       InstructorCard iCard;
-      iCard = new InstructorCard(id, name, rating, location,profession , picture);
+      iCard = new InstructorCard(id, name, reponsive_rating,effective_rating,overall_rating, location,profession , picture);
       cards.add(iCard.build(context));
     }
     
@@ -77,11 +79,13 @@ class InstructorsPageState extends State<InstructorsPage> {
 class InstructorCard extends StatelessWidget{ //Online attribute deleted add it later if needed
   final int id;
   final String name;
-  final double star;
+  final double responsive;
+  final double effective;
+  final double overall;
   final String profession;
   final String location;
   final String picture;
-  InstructorCard(this.id, this.name,this.star,this.location, this.profession,this.picture);
+  InstructorCard(this.id, this.name,this.responsive,this.effective,this.overall,this.location, this.profession,this.picture);
 
   @override
   Widget build(BuildContext context) {
@@ -125,9 +129,9 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
                     new Text("$profession"+" Instructor",style: TextStyle(fontSize: 20,fontStyle: FontStyle.italic),),
                     Row(
                       children: <Widget>[
-                        InstructorDetail(Icons.message, '9'),
-                        InstructorDetail(Icons.event_available, '$star'),
-                        InstructorDetail(Icons.tag_faces, '8.5')
+                        InstructorDetail(Icons.message, "$responsive"),
+                        InstructorDetail(Icons.event_available, '$effective'),
+                        InstructorDetail(Icons.tag_faces, '$overall')
                       ],
                     ),
                   ],
@@ -141,46 +145,6 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
               ],
             )
 
-
-
-
-
-
-              /*Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Container(
-                        width: 60.0,
-                        height: 60.0,
-                        decoration: new BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: new DecorationImage(
-                                fit: BoxFit.fill,
-                                image: new NetworkImage(
-                                    "$picture")
-                            )
-
-                        ),
-                    ),
-                      SizedBox(width: 14.0,),
-                      Center(child: new Text("$name"))
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    new Text("$profession"+" Instructor"),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    InstructorDetail(Icons.room, '$location'),
-                    InstructorDetail(Icons.star, '$star')
-                  ],
-                ),
-              ],
-              ),*/
             ),
             ),]
           ),
