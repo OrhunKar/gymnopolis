@@ -23,6 +23,8 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
   String value ="0";
 
 
+
+
   @override
   Widget build(BuildContext context) {
     ThemeData themeData = Theme.of(context);
@@ -44,8 +46,24 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
 
                 ),
               ),
-              Container(
+              Card(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: widget.exercise.set,
+                  itemBuilder: (BuildContext context, int index){
+                    return ListTile(
+                      onTap: _showDialog2,
+                      leading: CircleAvatar(
+                          child: new Text((index + 1).toString())
+                      ),
+                      title : new Text('Set ' + (index +1).toString()),
+                    );
+                  }
+                )
+                ),
+              /*Container(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -71,7 +89,7 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
                     )
                   ],
                 )
-                )
+                )*/
 
 
 
@@ -81,5 +99,46 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
 
       );
   }
+
+  void _showDialog2() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Results"),
+          content: Column(
+            children: <Widget>[
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: "eg. 3",
+                  labelText: 'Number of sets per exercise',
+                ),
+              ),
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: "eg. 12",
+                  labelText: 'Maximum rep count',
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Confirm"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
 
