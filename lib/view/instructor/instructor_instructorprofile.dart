@@ -2,26 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/InstructorModels/Service.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainer.dart';
 import 'package:gymnopolis/model/InstructorModels/Certificates.dart';
+import 'package:gymnopolis/view/instructor/instructor_instructorservice.dart';
 import 'package:gymnopolis/view/trainee/service_page.dart';
 
 import '../instructors_page.dart';
 
-class TrainerProfilePage extends StatefulWidget {
+class InstructorInstructorProfilePage extends StatefulWidget {
   static String tag = 'trainer-profile-page';
   int id;
   Trainer t;
-  TrainerProfilePage(this.id){
+  var c;
+  InstructorInstructorProfilePage(this.id){
     t = Trainer.allTrainers()[id-1];
   }
+  List<Widget> topBar(BuildContext context){
+    return <Widget>[
+      new IconButton(icon: new Icon(Icons.message), onPressed: null),
+      new IconButton(icon: new Icon(Icons.people), onPressed: null),
 
+    ];
+  }
 
   createState() {
-    return TrainerProfilePageState();
+    return InstructorInstructorProfilePageState();
   }
 }
 
 @override
-class TrainerProfilePageState extends State<TrainerProfilePage> {
+class InstructorInstructorProfilePageState extends State<InstructorInstructorProfilePage> {
 
   Widget build(BuildContext context) {
     double c_width = MediaQuery.of(context).size.width;
@@ -35,20 +43,22 @@ class TrainerProfilePageState extends State<TrainerProfilePage> {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.t.fullname),
+      appBar: AppBar(
+        title: Text(widget.t.fullname),
 
-        ),
-        body:
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                InstructorCard(widget.t.id, widget.t.fullname,widget.t.responsive_rating,widget.t.effective_rating,widget.t.overall_rating,widget.t.location, widget.t.profession,widget.t.picture),
+      ),
+      body:
+      Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              InstructorCard(widget.t.id, widget.t.fullname,widget.t.responsive_rating,widget.t.effective_rating,widget.t.overall_rating,widget.t.location, widget.t.profession,widget.t.picture),
 
-                Wrap(
+              Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: Wrap(
 
                   children: <Widget>[
                     Card(
@@ -69,18 +79,19 @@ class TrainerProfilePageState extends State<TrainerProfilePage> {
                     )
                   ],
                 ),
-                Column(
-                  children: <Widget>[
-                    new Text("Services Provided by Instructor:",style: TextStyle(fontWeight: FontWeight.bold)),
-                    ServiceList(widget.t)
-                  ],
-                )
+              ),
+              Column(
+                children: <Widget>[
+                  new Text("Services Provided by Instructor:",style: TextStyle(fontWeight: FontWeight.bold)),
+                  ServiceList(widget.t)
+                ],
+              )
 
-              ],
+            ],
 
-            ),
           ),
         ),
+      ),
     );
   }
 }
@@ -102,7 +113,7 @@ class ServiceList extends StatelessWidget {
             onTap: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ServicePage(services[index],t.fullname)),
+                MaterialPageRoute(builder: (context) => InstructorInstructorServicePage(services[index],t.fullname)),
               );},
             child: Padding(
               padding: const EdgeInsets.all(3.0),
