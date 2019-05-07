@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage>
                           width: 250.0,
                           height: 191.0,
                           fit: BoxFit.fill,
-                          image: new AssetImage('assets/login_logo.png')),
+                          image: new AssetImage('assets/logo-personal-trainer-png-7.png')),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 20.0),
