@@ -47,38 +47,26 @@ class TrainerProfilePageState extends State<TrainerProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 InstructorCard(widget.t.id, widget.t.fullname,widget.t.responsive_rating,widget.t.effective_rating,widget.t.overall_rating,widget.t.location, widget.t.profession,widget.t.picture),
-              Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Wrap(
 
-                    children: <Widget>[
-                     Container (
-
-                       width: c_width,
-                       child: new Column (
-                        children: <Widget>[
-                          new Text("About me: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
-                          new Text(widget.t.bio.toString() ,textAlign: TextAlign.start),
-                    ],
-                  ),
-                )
-                    ],
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Wrap(
 
                     children: <Widget>[
-                      Container (
+                      Card(
+                        child: Container (
 
-                        width: c_width,
-                        child: new Column (
-                          children: <Widget>[
-                            new Text("Certificates: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
-                            new Text(printCertificateList(widget.t.certificates) ,textAlign: TextAlign.start),
-                            new Text("Services Provided by Instructor:",style: TextStyle(fontWeight: FontWeight.bold)),
-                          ],
+                          width: c_width,
+                          child: new Column (
+                            children: <Widget>[
+
+                              new Text("About me: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
+                              new Text(widget.t.bio.toString() ,textAlign: TextAlign.start),
+                              new Text("Certificates: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
+                              new Text(printCertificateList(widget.t.certificates) ,textAlign: TextAlign.start),
+
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -86,6 +74,7 @@ class TrainerProfilePageState extends State<TrainerProfilePage> {
                 ),
                 Column(
                   children: <Widget>[
+                    new Text("Services Provided by Instructor:",style: TextStyle(fontWeight: FontWeight.bold)),
                     ServiceList(widget.t)
                   ],
                 )
