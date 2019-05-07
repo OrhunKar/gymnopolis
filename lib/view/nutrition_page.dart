@@ -7,6 +7,7 @@ class NutritionPage extends StatelessWidget with Page{
   @override
   Widget build(BuildContext context) {
 
+
       return PhotoView(
         backgroundDecoration: BoxDecoration(color: Theme.of(context).canvasColor),
       imageProvider: AssetImage("assets/beslenme.png"),
