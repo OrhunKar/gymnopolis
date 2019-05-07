@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainer.dart';
 import 'package:gymnopolis/view/Page.dart';
 
-import 'intructor_instructorprofile.dart';
+import 'instructor_instructorprofile.dart';
 
 class InstructorsInstructorPage extends StatefulWidget with Page{
   static String tag = 'instructor-instructors-page';
