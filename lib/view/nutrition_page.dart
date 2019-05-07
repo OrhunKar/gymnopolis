@@ -8,7 +8,7 @@ class NutritionPage extends StatelessWidget with Page{
   Widget build(BuildContext context) {
 
       return Container(
-          color: Colors.white,
+
           child: PhotoView(
           imageProvider: AssetImage("assets/beslenme.png"),
           )
