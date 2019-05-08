@@ -12,6 +12,7 @@ class InstructorInstructorProfilePage extends StatefulWidget {
   int id;
   Trainer t;
   var c;
+  var a;
   InstructorInstructorProfilePage(this.id){
     t = Trainer.allTrainers()[id-1];
   }
