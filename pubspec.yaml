@@ -30,6 +30,8 @@ dependencies:
   human_anatomy:
   font_awesome_flutter: ^8.0.1
   animated_text_kit: ^1.3.0
+  firebase_core: ^0.4.0  # add dependency for Firebase Core
+  firebase_database: ^3.0.0
 
 dev_dependencies:
 

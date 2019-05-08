@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:gymnopolis/model/simple_line_chart.dart';
 import 'package:gymnopolis/view/settings_page.dart';
 import 'package:gymnopolis/view/Page.dart';
 import 'package:human_anatomy/human_anatomy.dart';
@@ -76,25 +77,36 @@ class ProfilePageState extends State<ProfilePage>{
             ),
             new Padding(
               padding: new EdgeInsets.all(8.0),
-              child: new SizedBox(
+              child: Container(
                 height: 200.0,
-                child: new charts.LineChart(widget.seriesList, animate: widget.animate),
+                width: 400.0,
+                child:  SimpleLineChart.withSampleData(),
               ),
             ),
             new Padding(
               padding: new EdgeInsets.all(8.0),
-              child: new SizedBox(
+              child: Container(
                 height: 200.0,
-                child: new charts.LineChart(widget.seriesList, animate: widget.animate),
+                width: 400.0,
+                child:  SimpleLineChart.withSampleData(),
               ),
             ),
             new Padding(
               padding: new EdgeInsets.all(8.0),
-              child: new SizedBox(
+              child: Container(
                 height: 200.0,
-                child: new charts.LineChart(widget.seriesList, animate: widget.animate),
+                width: 400.0,
+                child:  SimpleLineChart.withSampleData(),
               ),
             ),
+            new Padding(
+                padding: new EdgeInsets.all(8.0),
+                child: Container(
+                  height: 200.0,
+                  width: 400.0,
+                  child:  SimpleLineChart.withSampleData(),
+                  ),
+            )
           ],
         ),
       );

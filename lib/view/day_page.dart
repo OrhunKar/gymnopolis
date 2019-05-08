@@ -30,9 +30,6 @@ class DayPageState extends State<DayPage> {
 
       appBar: AppBar(
         title: Text(widget.name),
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.edit), onPressed: null)
-        ],
       ),
       body: new ExerciseList(widget.exercise), //List displayed here
     );
