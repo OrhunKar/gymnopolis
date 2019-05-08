@@ -42,10 +42,7 @@ final ThemeData kDefaultTheme = new ThemeData(
 class FriendlychatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: "Friendlychat",
-      home: new ChatScreen(),
-    );
+    return new ChatScreen();
   }
 }
 

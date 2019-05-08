@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainee.dart';
+import 'package:gymnopolis/model/simple_line_chart.dart';
 import 'package:gymnopolis/view/instructor/messagesPages/private_messages_page.dart';
 import 'package:gymnopolis/view/instructor/studentPages/student_history_page.dart';
 import 'package:gymnopolis/view/instructor/studentPages/student_workout_page.dart';
+import 'package:human_anatomy/human_anatomy.dart';
 
 class StudentProfilePage extends StatefulWidget{
 
@@ -43,10 +45,53 @@ class StudentProfilePageState extends State<StudentProfilePage> {
           } ,)
         ]
       ),
-      body: Container(
-        height: 300.0,
-        color: Colors.red,
-      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: HumanAnatomy(
+                    )
+                ),
+              ],
+            ),
+            new Padding(
+              padding: new EdgeInsets.all(8.0),
+              child: Container(
+                height: 200.0,
+                width: 400.0,
+                child:  SimpleLineChart.withSampleData(),
+              ),
+            ),
+            new Padding(
+              padding: new EdgeInsets.all(8.0),
+              child: Container(
+                height: 200.0,
+                width: 400.0,
+                child:  SimpleLineChart.withSampleData(),
+              ),
+            ),
+            new Padding(
+              padding: new EdgeInsets.all(8.0),
+              child: Container(
+                height: 200.0,
+                width: 400.0,
+                child:  SimpleLineChart.withSampleData(),
+              ),
+            ),
+            new Padding(
+              padding: new EdgeInsets.all(8.0),
+              child: Container(
+                height: 200.0,
+                width: 400.0,
+                child:  SimpleLineChart.withSampleData(),
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }

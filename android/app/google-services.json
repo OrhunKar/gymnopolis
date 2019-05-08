@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "765610800758",
+    "firebase_url": "https://gymnopolisfirebase.firebaseio.com",
+    "project_id": "gymnopolisfirebase",
+    "storage_bucket": "gymnopolisfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765610800758:android:89b80c2289911307",
+        "android_client_info": {
+          "package_name": "com.gymnopolis.gymnopolis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "765610800758-53rqmbbs09ob32m6jiuet2qinsmv45pb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRSdNCaY1AtNtwXEHT7MiSncKkUd-zd_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "765610800758-53rqmbbs09ob32m6jiuet2qinsmv45pb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
