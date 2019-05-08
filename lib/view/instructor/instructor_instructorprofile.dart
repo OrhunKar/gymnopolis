@@ -5,16 +5,23 @@ import 'package:gymnopolis/model/InstructorModels/Certificates.dart';
 import 'package:gymnopolis/view/instructor/instructor_instructorservice.dart';
 import 'package:gymnopolis/view/trainee/service_page.dart';
 
-import '../Page.dart';
 import '../instructors_page.dart';
 
-class InstructorInstructorProfilePage extends StatefulWidget{
+class InstructorInstructorProfilePage extends StatefulWidget {
   static String tag = 'trainer-profile-page';
   int id;
   Trainer t;
   var c;
+  var a;
   InstructorInstructorProfilePage(this.id){
     t = Trainer.allTrainers()[id-1];
+  }
+  List<Widget> topBar(BuildContext context){
+    return <Widget>[
+      new IconButton(icon: new Icon(Icons.message), onPressed: null),
+      new IconButton(icon: new Icon(Icons.people), onPressed: null),
+
+    ];
   }
 
   createState() {
@@ -39,9 +46,6 @@ class InstructorInstructorProfilePageState extends State<InstructorInstructorPro
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.t.fullname),
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.message), onPressed: null),
-          new IconButton(icon: new Icon(Icons.people), onPressed: null),],
 
       ),
       body:
