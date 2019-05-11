@@ -55,15 +55,18 @@ class TrainerProfilePageState extends State<TrainerProfilePage> {
                       child: Container (
 
                         width: c_width,
-                        child: new Column (
-                          children: <Widget>[
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: new Column (
+                            children: <Widget>[
 
-                            new Text("About me: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
-                            new Text(widget.t.bio.toString() ,textAlign: TextAlign.start),
-                            new Text("Certificates: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
-                            new Text(printCertificateList(widget.t.certificates) ,textAlign: TextAlign.start),
+                              new Text("About me: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
+                              new Text(widget.t.bio.toString() ,textAlign: TextAlign.start),
+                              new Text("Certificates: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
+                              new Text(printCertificateList(widget.t.certificates) ,textAlign: TextAlign.start),
 
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     )

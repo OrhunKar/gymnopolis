@@ -13,6 +13,7 @@ import 'package:gymnopolis/model/ExerciseLog.dart';
 import 'package:gymnopolis/model/InstructorModels/Service.dart';
 import 'package:gymnopolis/model/InstructorModels/Trainee.dart';
 import 'package:gymnopolis/model/SetResult.dart';
+import 'package:youtube_player/youtube_player.dart';
 
 class WorkoutAssistantExercisePage extends StatefulWidget{
   Exercise exercise;
@@ -88,6 +89,12 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
                   }
                 )
               ),
+              YoutubePlayer(
+                context: context,
+                autoPlay: false,
+                source: widget.exercise.video,
+                quality: YoutubeQuality.HD,
+              )
               ],
           ),
 
@@ -143,7 +150,6 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
               child: new Text("Confirm"),
               onPressed: () {
                 allResult.add(_result);
-                //print(allResult[0].kg);
                 Navigator.of(context).pop();
               },
             ),
@@ -158,8 +164,10 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
     int length = sets.length;
 
     if( length > index ) {
+      print(sets[0].kg.toString() + "kg x " + sets[0].REP.toString() +
+          " RPE: " + sets[0].RPE.toString());
       return new Text(
-          sets[index].kg.toString() + "kg X " + sets[index].REP.toString() +
+          sets[index].kg.toString() + "kg x " + sets[index].REP.toString() +
               " RPE: " + sets[index].RPE.toString());
     }
     else

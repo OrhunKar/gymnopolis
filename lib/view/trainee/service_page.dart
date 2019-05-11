@@ -40,18 +40,21 @@ class ServicePageState extends State<ServicePage> {
             Container (
               decoration: BoxDecoration(color: Colors.white),
               width: c_width,
-              child: new Column (
-                children: <Widget>[
-                  new Text("About the service: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
-                  new Text(widget.service.description.toString() ,textAlign: TextAlign.start),
-                  Center(child:
-                  new RaisedButton(
-                    child: Text("Enroll for "+widget.service.cost.toString()+"\$"),
-                    onPressed: () {Navigator.of(context).pop();},
-                    color: Colors.green,
-                    textColor: Colors.white,
-                    elevation: 4))
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Column (
+                  children: <Widget>[
+                    new Text("About the service: " ,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold)),
+                    new Text(widget.service.description.toString() ,textAlign: TextAlign.start),
+                    Center(child:
+                    new RaisedButton(
+                      child: Text("Enroll for "+widget.service.cost.toString()+"\$"),
+                      onPressed: () {Navigator.of(context).pop();},
+                      color: Colors.green,
+                      textColor: Colors.white,
+                      elevation: 4))
+                  ],
+                ),
               ),
             )
           ],
