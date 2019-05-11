@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gymnopolis/controller/Engine.dart';
 import 'package:gymnopolis/view/Page.dart';
 
 class MessagesPage extends StatefulWidget with Page{
@@ -34,6 +35,8 @@ final ThemeData kDefaultTheme = new ThemeData(
 class FriendlychatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    print(Engine.dayLog.exerciseLog[0].logs[0].kg);
     return new ChatScreen();
   }
 }

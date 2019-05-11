@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gymnopolis/controller/Engine.dart';
 import 'package:gymnopolis/model/DayLog.dart';
 import 'package:gymnopolis/model/Exercise.dart';
+import 'package:gymnopolis/model/ExerciseLog.dart';
 import 'package:gymnopolis/view/trainee/workout_assistant_exercise.dart';
 
 
@@ -19,6 +21,11 @@ class WorkoutAssistantPage extends StatefulWidget {
 }
 
 class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
+
+
+
+  DayLog dayLog = new DayLog();
+
   void _showDialog() {
     // flutter defined function
     showDialog(
@@ -39,7 +46,7 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
             new FlatButton(
               child: new Text("Yes"),
               onPressed: () {
-                stopWatch();
+                //stopWatch();
                 Navigator.popUntil(context, ModalRoute.withName('home-page'));
               },
             ),
@@ -133,7 +140,10 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
 
   @override
   Widget build(BuildContext context) {
-  startWatch();
+
+
+
+  //  startWatch();
     return new WillPopScope(
       onWillPop: (){
         _showDialog2();
@@ -146,22 +156,25 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
           title: Text(elapsedTime),
 
         ),
-        body: new ExerciseList(widget.exercises), //List displayed her
+        body: new ExerciseList(widget.exercises, this.dayLog), //List displayed her
       ),
     );
   }
-
-
 }
 
 class ExerciseList extends StatelessWidget {
 
   final List<Exercise> _exercises;
 
-  ExerciseList(this._exercises);
+
+  final DayLog dayLog;
+
+  ExerciseList(this._exercises, this.dayLog);
 
   @override
   Widget build(BuildContext context) {
+
+
     return new ListView.builder(
       itemCount: _exercises.length,
       itemBuilder: (BuildContext context, int index){
@@ -169,7 +182,7 @@ class ExerciseList extends StatelessWidget {
             onTap: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => WorkoutAssistantExercisePage(_exercises[index])),
+                MaterialPageRoute(builder: (context) => WorkoutAssistantExercisePage(_exercises[index], dayLog.exerciseLog[index], index)),
               );},
             child: Padding(
               padding: const EdgeInsets.all(6.0),

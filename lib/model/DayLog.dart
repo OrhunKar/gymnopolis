@@ -1,8 +1,30 @@
+import 'Exercise.dart';
 import 'ExerciseLog.dart';
+import 'InstructorModels/Trainee.dart';
 
-class DayLog{
+class DayLog {
 
-  List<ExerciseLog> _exerciseLog;
+  final String name = "Day 1";
+  List<ExerciseLog> exerciseLog;
 
-  //DayLog(this._exerciseLog);
+
+  DayLog(){
+    exerciseLog = allLogs();
+  }
+
+
+  static List<ExerciseLog> allLogs(){
+    List<ExerciseLog> temp = List<ExerciseLog>();
+
+    temp.add(ExerciseLog());
+    temp.add(ExerciseLog());
+    temp.add(ExerciseLog());
+    temp.add(ExerciseLog());
+    temp.add(ExerciseLog());
+    temp.add(ExerciseLog());
+    temp.add(ExerciseLog());
+    temp.add(ExerciseLog());
+    return temp;
+  }
+
 }

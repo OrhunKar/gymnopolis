@@ -4,15 +4,12 @@ import 'SetResult.dart';
 
 class ExerciseLog{
 
-  final Trainee _trainee;
-  final Exercise _exercise;
+  Trainee trainee;
+  Exercise exercise;
   int set;
 
   List<SetResult> logs;
 
-  ExerciseLog(this._trainee, this._exercise, this.logs){
-    set = _exercise.set;
-  }
-
+  ExerciseLog({this.trainee, this.exercise, this.logs});
 }
 

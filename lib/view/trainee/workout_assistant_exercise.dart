@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:floating_bubble/floating_bubble.dart';
+import 'package:gymnopolis/controller/Engine.dart';
 import 'package:gymnopolis/model/DayLog.dart';
 import 'package:gymnopolis/model/Exercise.dart';
 import 'package:gymnopolis/model/ExerciseLog.dart';
@@ -15,13 +16,16 @@ import 'package:gymnopolis/model/SetResult.dart';
 
 class WorkoutAssistantExercisePage extends StatefulWidget{
   Exercise exercise;
-  //DayLog daylog;
-  WorkoutAssistantExercisePage(this.exercise);
+  ExerciseLog exLog;
+  int index;
+
+  WorkoutAssistantExercisePage(this.exercise, this.exLog, this.index);
 
   @override
   WorkoutAssistantExercisePageState createState() => WorkoutAssistantExercisePageState();
 
 }
+
 
 class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePage> with TickerProviderStateMixin{
   AnimationController controller;
@@ -29,21 +33,26 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
 
 
 
-  SetResult _result;
-  List<SetResult> allResult;
+  SetResult _result = new SetResult();
+  List<SetResult> allResult = new List<SetResult>();
 
 
   @override
   Widget build(BuildContext context) {
 
-    ExerciseLog log = new ExerciseLog(Trainee.allTrainees()[1] , widget.exercise, allResult);
 
 
-    ThemeData themeData = Theme.of(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           onPressed: (){
-            //widget.daylog
+            ExerciseLog log = new ExerciseLog();
+            log.trainee = Trainee.allTrainees()[1];
+            log.set = widget.exercise.set;
+            log.exercise = widget.exercise;
+            log.logs = allResult;
+            widget.exLog = log;
+            Engine.dayLog.exerciseLog[widget.index] = log;
+            Navigator.of(context).pop();
           },
           child: Icon(Icons.check)),
       appBar: AppBar(
@@ -73,7 +82,8 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
                       leading: CircleAvatar(
                           child: new Text((index + 1).toString())
                       ),
-                      title : new Text('Set ' + (index +1).toString()),
+                      title: setView(context, index, allResult),
+                      //new Text('Set ' + (index +1).toString()),
                     );
                   }
                 )
@@ -133,6 +143,7 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
               child: new Text("Confirm"),
               onPressed: () {
                 allResult.add(_result);
+                //print(allResult[0].kg);
                 Navigator.of(context).pop();
               },
             ),
@@ -142,5 +153,26 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
     );
   }
 
+  Widget setView(BuildContext context, int index, List<SetResult> sets){
+
+    int length = sets.length;
+
+    if( length > index ) {
+      return new Text(
+          sets[index].kg.toString() + "kg X " + sets[index].REP.toString() +
+              " RPE: " + sets[index].RPE.toString());
+    }
+    else
+      return new Text('Set ' + (index +1).toString());
+
+  }
+
+
+
+
+
+
+
 }
+
 

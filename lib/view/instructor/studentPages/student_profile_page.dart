@@ -35,7 +35,7 @@ class StudentProfilePageState extends State<StudentProfilePage> {
           } ,),
           new IconButton(icon: new Icon(Icons.history),onPressed:(){
             setState(() {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => StudentHistoryPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => StudentHistoryPage(widget.student)));
             });
           } ,),
           new IconButton(icon: new Icon(Icons.chat),onPressed:(){

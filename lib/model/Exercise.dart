@@ -15,6 +15,7 @@ class Exercise {
   Exercise({this.name, this.minRep, this.maxRep, this.minRPE, this.maxRPE,
     this.set, this.rest, this.image,this.video});
 
+
   Exercise.fromExercise(Exercise another): name = another.name, image = another.image;
 
 
