@@ -32,46 +32,88 @@ class TemplateDayState extends State<TemplateDayPage>{
     items = new List<Exercise>.from(items)..addAll(ExerciseBankPage.selectedExercises);
     ExerciseBankPage.selectedExercises = new List<Exercise>();
 
+
+    /*String set = "";
+    String maxRep = "";
+    String minRep = "";
+    String minRPE = "";
+    String maxRPE = "";
+    String rest = "";*/
+
     currentDay.exerciseList = items;
-    void _showDialog2() {
+    void _showDialog2(Exercise ex) {
       // flutter defined function
       showDialog(
         context: context,
         builder: (BuildContext context) {
           // return object of type Dialog
           return AlertDialog(
-            title: new Text("Default Values"),
-            content: Column(
-              children: <Widget>[
-                TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "eg. 3",
-                    labelText: 'Number of sets per exercise',
+            title: new Text(ex.name),
+            content: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (value){
+                      ex.set = int.parse(value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: "eg. 3",
+                      labelText: 'Number of sets per exercise',
+                    ),
                   ),
-                ),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "eg. 12",
-                    labelText: 'Maximum rep count',
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (value){
+                      ex.minRep = int.parse(value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: "eg. 6",
+                      labelText: 'Minimum rep count',
+                    ),
                   ),
-                ),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "integer between 1-10",
-                    labelText: 'Aimed RPE',
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (value){
+                      ex.maxRep = int.parse(value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: "eg. 12",
+                      labelText: 'Maximum rep count',
+                    ),
                   ),
-                ),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "eg. 30",
-                    labelText: 'Rest time in seconds',
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (value){
+                      ex.minRPE = int.parse(value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: "integer between 1-10",
+                      labelText: 'Min RPE',
+                    ),
                   ),
-                ),
-              ],
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (value){
+                      ex.maxRPE = int.parse(value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: "integer between 1-10",
+                      labelText: 'Max RPE',
+                    ),
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: (value){
+                      ex.rest = int.parse(value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: "eg. 30",
+                      labelText: 'Rest time in seconds',
+                    ),
+                  ),
+                ],
+              ),
             ),
             actions: <Widget>[
               // usually buttons at the bottom of the dialog
@@ -94,7 +136,7 @@ class TemplateDayState extends State<TemplateDayPage>{
           actions: <Widget>[
             new IconButton(icon: new Icon(Icons.settings),onPressed:(){
               setState(() {
-                _showDialog2();
+                //_showDialog2("For all exercises");
               });
             } ,),
             new IconButton(icon: new Icon(Icons.add),onPressed:(){
@@ -135,13 +177,25 @@ class TemplateDayState extends State<TemplateDayPage>{
             // Show a red background as the item is swiped away
             background: Container(color: Colors.red),
 
-            child: ListTile(
-              title: Text('$item'),
+            child: Card(
+              child: GestureDetector(
+                onLongPress: (){
+                  _showDialog2(currentDay.exerciseList[index]);
+                },
+                child: new ListTile(
+                  leading: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      radius: 20.0,
+                      child: Image.asset(currentDay.exerciseList[index].image)),
+                  title : new Text(currentDay.exerciseList[index].name, style: new TextStyle(fontSize: 22.0)),
+                  subtitle: new Text(currentDay.exerciseList[index].subtitle()),
+
+                ),
+              ),
             ),
           );
         },
       ),
     );
   }
-
 }

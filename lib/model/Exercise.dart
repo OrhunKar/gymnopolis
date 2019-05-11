@@ -7,7 +7,7 @@ class Exercise {
   int minRPE;
   int maxRPE;
   int set;
-  Duration rest;
+  int rest;
   String image;
   String video;
   var equipment;

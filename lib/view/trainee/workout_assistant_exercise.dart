@@ -6,11 +6,16 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:floating_bubble/floating_bubble.dart';
+import 'package:gymnopolis/model/DayLog.dart';
 import 'package:gymnopolis/model/Exercise.dart';
+import 'package:gymnopolis/model/ExerciseLog.dart';
 import 'package:gymnopolis/model/InstructorModels/Service.dart';
+import 'package:gymnopolis/model/InstructorModels/Trainee.dart';
+import 'package:gymnopolis/model/SetResult.dart';
 
 class WorkoutAssistantExercisePage extends StatefulWidget{
   Exercise exercise;
+  //DayLog daylog;
   WorkoutAssistantExercisePage(this.exercise);
 
   @override
@@ -24,11 +29,23 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
 
 
 
+  SetResult _result;
+  List<SetResult> allResult;
+
 
   @override
   Widget build(BuildContext context) {
+
+    ExerciseLog log = new ExerciseLog(Trainee.allTrainees()[1] , widget.exercise, allResult);
+
+
     ThemeData themeData = Theme.of(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            //widget.daylog
+          },
+          child: Icon(Icons.check)),
       appBar: AppBar(
         title: Text(widget.exercise.name),
       ),
@@ -60,39 +77,7 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
                     );
                   }
                 )
-                ),
-              /*Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        TextFormField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            icon: Icon(Icons.account_circle),
-                            labelText: 'kg',
-
-                          ),
-                        ),
-                        TextFormField(
-                          keyboardType: TextInputType.number,
-
-                          decoration: InputDecoration(
-                            icon: Icon(Icons.lock),
-                            labelText: 'reps',
-                          ),
-                        ),
-
-                      ],
-                    )
-                  ],
-                )
-                )*/
-
-
-
+              ),
               ],
           ),
 
@@ -112,16 +97,32 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
             children: <Widget>[
               TextField(
                 keyboardType: TextInputType.number,
+                onChanged: (value){
+                  _result.kg = int.parse(value);
+                },
                 decoration: InputDecoration(
-                  hintText: "eg. 3",
-                  labelText: 'Number of sets per exercise',
+                  hintText: "eg. 30",
+                  labelText: 'Enter weight',
                 ),
               ),
               TextField(
                 keyboardType: TextInputType.number,
+                onChanged: (value){
+                  _result.REP = int.parse(value);
+                },
                 decoration: InputDecoration(
                   hintText: "eg. 12",
-                  labelText: 'Maximum rep count',
+                  labelText: 'Enter REP',
+                ),
+              ),
+              TextField(
+                keyboardType: TextInputType.number,
+                onChanged: (value){
+                  _result.RPE = int.parse(value);
+                },
+                decoration: InputDecoration(
+                  hintText: "eg. 8",
+                  labelText: 'Enter RPE between 1-10',
                 ),
               ),
             ],
@@ -131,6 +132,7 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
             new FlatButton(
               child: new Text("Confirm"),
               onPressed: () {
+                allResult.add(_result);
                 Navigator.of(context).pop();
               },
             ),

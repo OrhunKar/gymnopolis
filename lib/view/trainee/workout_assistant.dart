@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gymnopolis/model/DayLog.dart';
 import 'package:gymnopolis/model/Exercise.dart';
 import 'package:gymnopolis/view/trainee/workout_assistant_exercise.dart';
 
 
 class WorkoutAssistantPage extends StatefulWidget {
   static String tag = 'login-page'; //tag for router
-
+  //final DayLog daylog;
   final String name;
 
   final List<Exercise> exercises;
