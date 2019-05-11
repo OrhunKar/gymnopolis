@@ -8,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gymnopolis/StyleLoginPackage/style/theme.dart' as Theme;
 import 'package:gymnopolis/StyleLoginPackage/utils/bubble_indication_painter.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_database/firebase_database.dart';
 
 class LoginPage extends StatefulWidget {
 
@@ -20,7 +20,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
 
-  final databaseReference = FirebaseDatabase.instance.reference();
+  // final databaseReference = FirebaseDatabase.instance.reference();
 
   String _email;
   String _password;
@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
 
-    databaseReference.child("Trainee");
+    // databaseReference.child("Trainee");
     return new Scaffold(
       key: _scaffoldKey,
       body: NotificationListener<OverscrollIndicatorNotification>(
