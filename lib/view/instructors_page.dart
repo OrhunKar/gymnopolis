@@ -110,8 +110,8 @@ class InstructorCard extends StatelessWidget{ //Online attribute deleted add it 
                 Column(
                   children: <Widget>[
                     Container(
-                      width: 100.0,
-                      height: 100.0,
+                      width: 80.0,
+                      height: 80.0,
                       decoration: new BoxDecoration(
                           shape: BoxShape.circle,
                           image: new DecorationImage(
