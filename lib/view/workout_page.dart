@@ -82,6 +82,9 @@ class WorkoutState extends State<WorkoutPage> {
           return new Text('Error: ${snapshot.error}');
         if (snapshot.connectionState == ConnectionState.waiting)
           return new Text('Loading...');
+
+        if (snapshot.data.documents.isEmpty)
+          return Container();
         
         var workoutPlan = snapshot.data.documents[0];
         var trainer = workoutPlan.data['trainer'];
