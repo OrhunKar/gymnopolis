@@ -1,16 +1,12 @@
-///Orderable list view dependency taken from here
-///https://github.com/knopp/flutter_reorderable_list/blob/master/example/lib/main.dart
+/// Orderable list view dependency taken from
+/// https://github.com/knopp/flutter_reorderable_list/blob/master/example/lib/main.dart
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
-import 'package:gymnopolis/model/Exercise.dart';
-import 'package:gymnopolis/model/Workout.dart';
+import 'package:gymnopolis/controller/Engine.dart';
 import 'package:gymnopolis/view/day_page.dart';
 import 'package:gymnopolis/view/Page.dart';
-
-
-
-
 
 class WorkoutPage extends StatefulWidget with Page{
   static String tag = 'workout-page';
@@ -24,15 +20,13 @@ class WorkoutPage extends StatefulWidget with Page{
 }
 
 class ItemData {
-  ItemData(this.title, this.leadingNumber, this.instructorName, this.exercise, this.key);
-
-  final String title;
-  final String leadingNumber;
-  final String instructorName;
-  final List<Exercise> exercise;
+  ItemData(this.key, this.day, this.trainer, this.reference);
 
   // Each item in reorderable list needs stable and unique key
   final Key key;
+  final int day;
+  final String trainer;
+  final CollectionReference reference;
 }
 
 //This can be changed according to target audience
@@ -41,27 +35,12 @@ enum DraggingMode {
   Android,
 }
 
-
 class WorkoutState extends State<WorkoutPage> {
-
-  Workout _workout = Workout("workout1", "Can Hoca", Workout.allDays());
-
-  List<ItemData> _items;
-
-  WorkoutState() {
-    _items = List();
-    for (int i = 0; i < _workout.allWorkouts().length; ++i) {
-      String number = (i+1).toString();
-      String label = _workout.allWorkouts()[i].name;
-      String instructorName = _workout.instructorName;
-      List<Exercise> exercise = _workout.allWorkouts()[i].exerciseList;
-      _items.add(ItemData(label,number, instructorName, exercise, ValueKey(i)));
-    }
-  }
+  List<Key> keys;
 
   // Returns index of item with given key
   int _indexOfKey(Key key) {
-    return _items.indexWhere((ItemData d) => d.key == key);
+    return keys.indexOf(key);
   }
 
   bool _reorderCallback(Key item, Key newPosition) {
@@ -72,18 +51,18 @@ class WorkoutState extends State<WorkoutPage> {
     // if (newPositionIndex % 2 == 1)
     //   return false;
 
-    final draggedItem = _items[draggingIndex];
+    final draggedItem = keys[draggingIndex];
     setState(() {
       debugPrint("Reordering $item -> $newPosition");
-      _items.removeAt(draggingIndex);
-      _items.insert(newPositionIndex, draggedItem);
+      keys.removeAt(draggingIndex);
+      keys.insert(newPositionIndex, draggedItem);
     });
     return true;
   }
 
   void _reorderDone(Key item) {
-    final draggedItem = _items[_indexOfKey(item)];
-    debugPrint("Reordering finished for ${draggedItem.title}}");
+    final draggedItem = keys[_indexOfKey(item)];
+    debugPrint("Reordering finished for index $draggedItem");
   }
 
   //
@@ -93,64 +72,47 @@ class WorkoutState extends State<WorkoutPage> {
 
   DraggingMode _draggingMode = DraggingMode.Android;
 
+  @override
   Widget build(BuildContext context) {
-    return ReorderableList(
-        onReorder: this._reorderCallback,
-        onReorderDone: this._reorderDone,
-        child: CustomScrollView(
-          // cacheExtent: 3000,
-          slivers: <Widget>[
-            /*SliverAppBar(
-              actions: <Widget>[
-                PopupMenuButton<DraggingMode>(
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Text("Options"),
-                  ),
-                  initialValue: _draggingMode,
-                  onSelected: (DraggingMode mode) {
-                    setState(() {
-                      _draggingMode = mode;
-                    });
-                  },
-                  itemBuilder: (BuildContext context) =>
-                  <PopupMenuItem<DraggingMode>>[
-                    const PopupMenuItem<DraggingMode>(
-                        value: DraggingMode.iOS,
-                        child: Text('iOS-like dragging')),
-                    const PopupMenuItem<DraggingMode>(
-                        value: DraggingMode.Android,
-                        child: Text('Android-like dragging')),
-                  ],
-                ),
-              ],
-              pinned: true,
-              expandedHeight: 150.0,
-              flexibleSpace: const FlexibleSpaceBar(
-                title: const Text('Demo'),
-              ),
-            ),*/
-            SliverPadding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).padding.bottom),
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection('workout_plans')
+        .where('trainee', isEqualTo: Engine.user).snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError)
+          return new Text('Error: ${snapshot.error}');
+        if (snapshot.connectionState == ConnectionState.waiting)
+          return new Text('Loading...');
+        
+        var workoutPlan = snapshot.data.documents[0];
+        var trainer = workoutPlan.data['trainer'];
+        var days = workoutPlan.data['days'];
+        setState(() {
+          keys = List.generate(days, (i) => ValueKey(i));
+        });
+
+        return ReorderableList(
+          onReorder: this._reorderCallback,
+          onReorderDone: this._reorderDone,
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverPadding(
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
                 sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                      return Item(
-                        data: _items[index],
-                        // first and last attributes affect border drawn during dragging
-                        isFirst: index == 0,
-                        isLast: index == _items.length - 1,
-                        draggingMode: _draggingMode,
-                      );
-                    },
-                    childCount: _items.length,
-                  ),
-                )),
-          ],
-        ),
-      );
+                  delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+                    var day = index + 1;
+                    return Item(
+                      data: ItemData(keys[index], day, trainer,
+                        workoutPlan.reference.collection(day.toString())),
+                      // first and last attributes affect border drawn during dragging
+                      isFirst: index == 0,
+                      isLast: index == days - 1,
+                      draggingMode: _draggingMode,
+                    );
+                  },
+                  childCount: days,
+                )))]));
+      }
+    );
   }
 }
 
@@ -168,25 +130,6 @@ class Item extends StatelessWidget {
   final DraggingMode draggingMode;
 
   Widget _buildChild(BuildContext context, ReorderableItemState state) {
-    BoxDecoration decoration;
-
-    if (state == ReorderableItemState.dragProxy ||
-        state == ReorderableItemState.dragProxyFinished) {
-      // slightly transparent background white dragging (just like on iOS)
-      decoration = BoxDecoration(color: Color(0xD0FFFFFF));
-    } else {
-      bool placeholder = state == ReorderableItemState.placeholder;
-      decoration = BoxDecoration(
-          border: Border(
-              top: isFirst && !placeholder
-                  ? Divider.createBorderSide(context) //
-                  : BorderSide.none,
-              bottom: isLast && placeholder
-                  ? BorderSide.none //
-                  : Divider.createBorderSide(context)),
-          color: placeholder ? null : Colors.white);
-    }
-
     // For iOS dragging mdoe, there will be drag handle on the right that triggers
     // reordering; For android mode it will be just an empty container
     Widget dragHandle = draggingMode == DraggingMode.iOS
@@ -198,8 +141,7 @@ class Item extends StatelessWidget {
           child: Icon(Icons.reorder, color: Color(0xFF888888)),
         ),
       ),
-    )
-        : Container();
+    ) : Container();
 
     Widget content = Card(
       //color: Color(0xFFfbab66),
@@ -207,7 +149,7 @@ class Item extends StatelessWidget {
         onTap: (){
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DayPage(data.title, data.exercise),
+              MaterialPageRoute(builder: (context) => DayPage(data.reference),
               )
           );},
         child: SafeArea(
@@ -225,10 +167,10 @@ class Item extends StatelessWidget {
                           padding:
                           EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
                           child: ListTile(
-                            title: new Text(data.title, style: new TextStyle(fontSize: 22.0)),
-                            subtitle: new Text(data.instructorName , style: new TextStyle(fontStyle: FontStyle.italic)),
+                            title: new Text('Day ${data.day}', style: new TextStyle(fontSize: 22.0)),
+                            subtitle: new Text('Trainer: ${data.trainer}', style: new TextStyle(fontStyle: FontStyle.italic)),
                             leading: new CircleAvatar(
-                              child: new Text(data.leadingNumber)
+                              child: new Text(data.day.toString())
                             ),
                           ),
                         )),
@@ -257,40 +199,4 @@ class Item extends StatelessWidget {
         key: data.key, //
         childBuilder: _buildChild);
   }
-
-
-  /*
-  Workout _workout = Workout("workout1", "Can Hoca");
-
-  @override
-  Widget build(BuildContext context) {
-
-    return new ListView.builder(
-      itemCount: _workout.allWorkouts().length,
-      itemBuilder: (BuildContext context, int index){
-        return new GestureDetector(
-          onTap: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DayPage(_workout.allWorkouts()[index].name, _workout.allWorkouts()[index].exerciseList),
-              )
-            );},
-          child: Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Card(
-              child: new ListTile(
-                  title : new Text(_workout.allWorkouts()[index].name, style: new TextStyle(fontSize: 22.0)),
-                  subtitle: new Text(_workout.instructorName , style: new TextStyle(fontStyle: FontStyle.italic)),
-                  leading: new CircleAvatar(
-                      child: new Text((index+1).toString())
-                  )
-              ),
-            ),
-          ),
-        ) ;
-      },
-      padding: new EdgeInsets.symmetric(vertical: 8.0),
-    );
-  }
-  */
 }

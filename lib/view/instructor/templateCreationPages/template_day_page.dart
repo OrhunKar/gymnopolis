@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Day.dart';
 import 'package:gymnopolis/model/Exercise.dart';
@@ -8,39 +7,23 @@ import 'package:gymnopolis/view/instructor/templateCreationPages/exercisebank_pa
 class TemplateDayPage extends StatefulWidget {
   static String tag = 'workout-page';
 
-  final String name;
-  final List<Day> days;
+  final Day day;
 
-  TemplateDayPage(this.name, this.days);
-
-  //TemplateDayPage.fromTemplateDayPage(TemplateDayPage another): _selectedExercises = another._selectedExercises;
+  TemplateDayPage(this.day);
 
   createState() {
     return TemplateDayState();
   }
 }
 
-class TemplateDayState extends State<TemplateDayPage>{
-
-
-
+class TemplateDayState extends State<TemplateDayPage> {
   @override
   Widget build(BuildContext context) {
-
-    Day currentDay = widget.days.firstWhere((test) => test.name == widget.name);
-    var items = currentDay.exerciseList;
+    var items = widget.day.exerciseList;
     items = new List<Exercise>.from(items)..addAll(ExerciseBankPage.selectedExercises);
     ExerciseBankPage.selectedExercises = new List<Exercise>();
 
-
-    /*String set = "";
-    String maxRep = "";
-    String minRep = "";
-    String minRPE = "";
-    String maxRPE = "";
-    String rest = "";*/
-
-    currentDay.exerciseList = items;
+    widget.day.exerciseList = items;
     void _showDialog2(Exercise ex) {
       // flutter defined function
       showDialog(
@@ -132,31 +115,29 @@ class TemplateDayState extends State<TemplateDayPage>{
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-          title: Text(widget.name),
-          actions: <Widget>[
-            new IconButton(icon: new Icon(Icons.settings),onPressed:(){
-              setState(() {
-                //_showDialog2("For all exercises");
-              });
-            } ,),
-            new IconButton(icon: new Icon(Icons.add),onPressed:(){
-              setState(() {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseBankPage()));
-                });
-            } ,)
-          ]
-      ),
+        title: Text(widget.day.name),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.settings), onPressed: () {
+            setState(() {
+              //_showDialog2("For all exercises");
+            });
+          }),
+          new IconButton(icon: new Icon(Icons.add), onPressed: () {
+            setState(() {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseBankPage()));
+            });
+          })]),
       floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.check)
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.check)
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: ListView.builder(
-        itemCount: currentDay.exerciseList.length,
+        itemCount: widget.day.exerciseList.length,
         itemBuilder: (context, index) {
-          final item = currentDay.exerciseList[index].name;
+          final item = widget.day.exerciseList[index].name;
 
           return Dismissible(
             // Each Dismissible must contain a Key. Keys allow Flutter to
@@ -167,7 +148,7 @@ class TemplateDayState extends State<TemplateDayPage>{
             onDismissed: (direction) {
               // Remove the item from our data source.
               setState(() {
-                currentDay.exerciseList.removeAt(index);
+                widget.day.exerciseList.removeAt(index);
               });
 
               // Then show a snackbar!
@@ -180,15 +161,16 @@ class TemplateDayState extends State<TemplateDayPage>{
             child: Card(
               child: GestureDetector(
                 onLongPress: (){
-                  _showDialog2(currentDay.exerciseList[index]);
+                  _showDialog2(widget.day.exerciseList[index]);
                 },
                 child: new ListTile(
                   leading: CircleAvatar(
                       backgroundColor: Colors.transparent,
                       radius: 20.0,
-                      child: Image.asset(currentDay.exerciseList[index].image)),
-                  title : new Text(currentDay.exerciseList[index].name, style: new TextStyle(fontSize: 22.0)),
-                  subtitle: new Text(currentDay.exerciseList[index].subtitle()),
+                      child: Image.asset(widget.day.exerciseList[index].base.image)),
+                  title : new Text(widget.day.exerciseList[index].base.name,
+                    style: new TextStyle(fontSize: 22.0)),
+                  subtitle: new Text(widget.day.exerciseList[index].subtitle()),
 
                 ),
               ),

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 
 class Exercise {
+  Exercise base;
   final String name;
   int minRep;
   int maxRep;
@@ -12,13 +12,10 @@ class Exercise {
   String video;
   var equipment;
 
-  Exercise({this.name, this.minRep, this.maxRep, this.minRPE, this.maxRPE,
-    this.set, this.rest, this.image,this.video});
-
+  Exercise({this.base, this.name, this.minRep, this.maxRep, this.minRPE, this.maxRPE,
+    this.set, this.rest, this.image, this.video});
 
   Exercise.fromExercise(Exercise another): name = another.name, image = another.image;
-
-
 
   String subtitle() {
     if(minRep == maxRep && minRPE != maxRPE) {
@@ -28,7 +25,7 @@ class Exercise {
       return "$set Set x $minRep-$maxRep reps RPE: $minRPE";
     }
 
-   else if (minRep == maxRep && minRPE == maxRPE)  {
+    else if (minRep == maxRep && minRPE == maxRPE)  {
       return "$set Set x $minRep reps RPE: $minRPE";
     }
     else{
@@ -36,5 +33,3 @@ class Exercise {
     }
   }
 }
-
-

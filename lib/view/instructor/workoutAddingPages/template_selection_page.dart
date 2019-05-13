@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/controller/Engine.dart';
 import 'package:gymnopolis/model/InstructorModels/Template.dart';
-import 'dart:math' as math;
 
 class TemplateSelectionPage extends StatefulWidget{
 
@@ -16,31 +16,40 @@ class TemplateSelectionPage extends StatefulWidget{
 
 @override
 class TemplateSelectionPageState extends State<TemplateSelectionPage> {
-
-
-
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Templates'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              showSearch(context: context, delegate: TemplateSearch(),);
-            },
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.check)
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: builderFunc(context, Engine.allTemplates.toList()),
-    );
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection('workout_plans')
+        .where('name', isNull: false).snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError)
+          return new Text('Error: ${snapshot.error}');
+        if (snapshot.connectionState == ConnectionState.waiting)
+          return new Text('Loading...');
+        
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Templates'),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  showSearch(context: context, delegate: TemplateSearch());
+                })]),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.check)
+            ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+            body: builderFunc(context, snapshot.data.documents.map((document) =>
+              Template(
+                name: document.data['name'],
+                workout: null
+            )).toList()));
+        });
   }
 }
 

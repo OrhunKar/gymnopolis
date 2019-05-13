@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:gymnopolis/controller/Engine.dart';
 import 'package:gymnopolis/utils/transformed_firestore_list.dart';
 import 'package:gymnopolis/view/Page.dart';
 
@@ -27,7 +28,6 @@ class MessagesPageState extends State<MessagesPage> {
   static const _animationDuration = Duration(milliseconds: 300);
   final _scrollController = ScrollController();
 
-  final me = 'Burak';
   final _conversation = Firestore.instance.collection('conversation');
   final _textController = TextEditingController();
   var _query;
@@ -42,7 +42,7 @@ class MessagesPageState extends State<MessagesPage> {
   }
 
   void _onPressed() {
-    _conversation.add({'date': Timestamp.now(), 'sender': me, 'text': _textController.text});
+    _conversation.add({'date': Timestamp.now(), 'sender': Engine.user, 'text': _textController.text});
     _textController.clear();
   }
   void _hideKeyboard() => SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -72,7 +72,7 @@ class MessagesPageState extends State<MessagesPage> {
             }),
             query: _query,
             transformer: (DocumentSnapshot snapshot) => Message(snapshot.data['text'],
-              snapshot.data['sender'] == me ? MessageOwner.me : MessageOwner.other),
+              snapshot.data['sender'] == Engine.user ? MessageOwner.me : MessageOwner.other),
             itemBuilder: (_, List<Message> messages, int index, Animation<double> animation) {
               var message = messages[index];
               return LayoutBuilder(

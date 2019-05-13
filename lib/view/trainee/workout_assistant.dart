@@ -1,29 +1,22 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:gymnopolis/controller/Engine.dart';
 import 'package:gymnopolis/model/DayLog.dart';
 import 'package:gymnopolis/model/Exercise.dart';
-import 'package:gymnopolis/model/ExerciseLog.dart';
 import 'package:gymnopolis/view/trainee/workout_assistant_exercise.dart';
-
 
 class WorkoutAssistantPage extends StatefulWidget {
   static String tag = 'login-page'; //tag for router
   //final DayLog daylog;
   final String name;
-
   final List<Exercise> exercises;
 
-  WorkoutAssistantPage(this.name,this.exercises);
+  WorkoutAssistantPage(this.name, this.exercises);
+
   @override
   WorkoutAssistantPageState createState() => WorkoutAssistantPageState();
 }
 
 class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
-
-
-
   DayLog dayLog = new DayLog();
 
   void _showDialog() {
@@ -84,6 +77,7 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
       },
     );
   }
+
   Stopwatch watch = new Stopwatch();
   Timer timer;
 
@@ -122,12 +116,14 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
 
     return "$minutesStr:$secondsStr";
   }
+
   updateTime(Timer timer) {
     if (watch.isRunning) {
       var milliseconds = watch.elapsedMilliseconds;
       int hundreds = (milliseconds / 10).truncate();
       int seconds = (hundreds / 100).truncate();
       int minutes = (seconds / 60).truncate();
+
       setState(() {
         elapsedTime = transformMilliSeconds(watch.elapsedMilliseconds);
         if (seconds > 59) {
@@ -140,9 +136,6 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
   //  startWatch();
     return new WillPopScope(
       onWillPop: (){
@@ -150,12 +143,10 @@ class WorkoutAssistantPageState extends State<WorkoutAssistantPage> {
       },
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-            onPressed: _showDialog ,
-            child: Icon(Icons.check)),
-          appBar: AppBar(
-          title: Text(elapsedTime),
-
+          onPressed: _showDialog ,
+          child: Icon(Icons.check)
         ),
+        appBar: AppBar(title: Text(elapsedTime)),
         body: new ExerciseList(widget.exercises, this.dayLog), //List displayed her
       ),
     );
