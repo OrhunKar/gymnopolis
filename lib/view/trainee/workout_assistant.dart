@@ -183,8 +183,8 @@ class ExerciseList extends StatelessWidget {
                     leading: CircleAvatar(
                         backgroundColor: Colors.transparent,
                         radius: 20.0,
-                        child: Image.asset(_exercises[index].image)),
-                    title : new Text(_exercises[index].name, style: new TextStyle(fontSize: 22.0)),
+                        child: Image.asset(_exercises[index].base.image)),
+                    title : new Text(_exercises[index].base.name, style: new TextStyle(fontSize: 22.0)),
                     subtitle: new Text("0/" + _exercises[index].set.toString() + " Sets completed", style: new TextStyle(fontSize: 20)),
 
                   ),

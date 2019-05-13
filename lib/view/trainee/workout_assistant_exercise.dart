@@ -57,7 +57,7 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
           },
           child: Icon(Icons.check)),
       appBar: AppBar(
-        title: Text(widget.exercise.name),
+        title: Text(widget.exercise.base.name),
       ),
 
       body: Column(
@@ -67,8 +67,8 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
                   leading: CircleAvatar(
                       backgroundColor: Colors.transparent,
                       radius: 20.0,
-                      child: Image.asset(widget.exercise.image)),
-                  title : new Text(widget.exercise.name, style: new TextStyle(fontSize: 22.0)),
+                      child: Image.asset(widget.exercise.base.image)),
+                  title : new Text(widget.exercise.base.name, style: new TextStyle(fontSize: 22.0)),
                   subtitle: new Text(widget.exercise.subtitle()),
 
                 ),
@@ -92,7 +92,7 @@ class WorkoutAssistantExercisePageState extends State<WorkoutAssistantExercisePa
               YoutubePlayer(
                 context: context,
                 autoPlay: false,
-                source: widget.exercise.video,
+                source: widget.exercise.base.video,
                 quality: YoutubeQuality.HD,
               )
               ],
