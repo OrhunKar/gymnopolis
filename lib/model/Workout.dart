@@ -40,18 +40,13 @@ class Workout {
   }
 
 
-
-  static List<Exercise> exampleExercises()
-  {
-    var list = new List<Exercise>();
-
-    list.add(new Exercise(name: "Bench Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/benchpress3.png',video:'9l9guSIjnZY-w'));
-    list.add(new Exercise(name: "Push Up", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/pushup.png',video:'5eSM88TFzAs-w'));
-    list.add(new Exercise(name: "Pull Up", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/pullup.png',video:'iUNoLR0pYjY-w'));
-    list.add(new Exercise(name: "Dumbell Deadlift", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/deadlift (2).png',video:'tghHkZW1KBI-w'));
-
-    return list;
-  }
+  static List<Exercise> exercises = <Exercise>[
+    Exercise(name: "Bench Press", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/benchpress3.png',video:'9l9guSIjnZY-w'),
+    Exercise(name: "Push Up", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/pushup.png',video:'5eSM88TFzAs-w'),
+    Exercise(name: "Pull Up", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/pullup.png',video:'iUNoLR0pYjY-w'),
+    Exercise(name: "Dumbell Deadlift", minRep: 12, maxRep: 15, minRPE: 8, maxRPE: 9, set: 5,image: 'assets/deadlift (2).png',video:'tghHkZW1KBI-w')
+  ];
+  static List<Exercise> exampleExercises() => exercises;
 
   static List<Exercise> allExercises()
   {

@@ -34,7 +34,7 @@ class TemplateDayState extends State<TemplateDayPage> {
         builder: (BuildContext context) {
           // return object of type Dialog
           return AlertDialog(
-            title: new Text(ex.name),
+            title: new Text(ex.base.name),
             content: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
