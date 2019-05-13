@@ -12,8 +12,9 @@ class TemplateWorkoutPage extends StatefulWidget {
 
   final String name;
   final Workout workout;
+  final bool existing;
 
-  TemplateWorkoutPage(this.name, this.workout);
+  TemplateWorkoutPage(this.name, this.workout, this.existing);
 
   createState() {
     return TemplateWorkoutState();
@@ -22,58 +23,69 @@ class TemplateWorkoutPage extends StatefulWidget {
 
 class TemplateWorkoutState extends State<TemplateWorkoutPage> {
   final workoutPlans = Firestore.instance.collection('workout_plans');
+  final changes = List<Day>();
   int day = 1;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('workout_plans')
-        .where('name', isEqualTo: widget.name).snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError)
-          return new Text('Error: ${snapshot.error}');
-        if (snapshot.connectionState == ConnectionState.waiting)
-          return new Text('Loading...');
-        
-        var workoutPlan = snapshot.data.documents[0];
-        var days = workoutPlan.data['days'];
-        widget.workout.days.addAll(List.generate(days, (i) => Day('Day $i', List<Exercise>())));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.name),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.info), onPressed: () {}),
+          new IconButton(icon: new Icon(Icons.add), onPressed: () {
+            setState(() {
+              changes.add(new Day("Day $day", new List<Exercise>()));
+              day++;
+            });
+          })]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var workoutPlan = await workoutPlans.add({
+            'name': widget.name,
+            'days': widget.workout.days.where((day) => day.exerciseList.isNotEmpty).length
+          });
+          widget.workout.days.asMap().forEach((index, day) {
+            var workoutDay = workoutPlan.collection((index + 1).toString());
+            day.exerciseList.forEach((exercise) => workoutDay.add({
+              'id': Workout.exampleExercises().indexOf(exercise.base) + 1,
+              'set': exercise.set,
+              'minREP': exercise.minRep,
+              'maxREP': exercise.maxRep,
+              'minRPE': exercise.minRPE,
+              'maxRPE': exercise.maxRPE
+            }));
+          });
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.check)
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: StreamBuilder<QuerySnapshot>(
+        stream: workoutPlans
+          .where('name', isEqualTo: widget.name).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError)
+            return Text('Error: ${snapshot.error}');
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return Text('Loading...');
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(widget.name),
-            actions: <Widget>[
-              new IconButton(icon: new Icon(Icons.info), onPressed: () {}),
-              new IconButton(icon: new Icon(Icons.add), onPressed: () {
-                setState(() {
-                  widget.workout.days.add(new Day("Day $day", new List<Exercise>()));
-                  day++;
-                });
-              })]),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              var workoutPlan = await workoutPlans.add({
-                'trainer': Engine.user,
-                'trainee': 'Umut',
-                'days': widget.workout.days.where((day) => day.exerciseList.isNotEmpty).length
-              });
-              widget.workout.days.asMap().forEach((index, day) {
-                var workoutDay = workoutPlan.collection((index + 1).toString());
-                day.exerciseList.forEach((exercise) => workoutDay.add({
-                  'id': Workout.exampleExercises().indexOf(exercise.base) + 1,
-                  'set': exercise.set,
-                  'minREP': exercise.minRep,
-                  'maxREP': exercise.maxRep,
-                  'minRPE': exercise.minRPE,
-                  'maxRPE': exercise.maxRPE
-                }));
-              });
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.check)
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-          body: ListView.builder(
+          var workoutPlan;
+
+          if (widget.existing) {
+            workoutPlan = snapshot.data.documents[0];
+            var days = workoutPlan.data['days'];
+            workoutPlan = workoutPlan.reference;
+            widget.workout.days =
+              List.generate(days, (i) => Day('Day ${i + 1}', List<Exercise>()));
+            widget.workout.days.addAll(changes);
+          } else {
+            workoutPlan = workoutPlans.document();
+            widget.workout.days = changes;
+          }
+          day = widget.workout.days.length + 1;
+
+          return ListView.builder(
             itemCount: widget.workout.days.length,
             itemBuilder: (context, index) {
               final day = widget.workout.days[index];
@@ -81,9 +93,11 @@ class TemplateWorkoutState extends State<TemplateWorkoutPage> {
               return ListTile(
                 title: Text(day.name),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => TemplateDayPage(day)));
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => TemplateDayPage(day,
+                      workoutPlan.collection((index + 1).toString()))));
                 });
-            }));
-    });
+            });
+        }));
   }
 }

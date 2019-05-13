@@ -1,13 +1,14 @@
 
 
-import 'package:gymnopolis/model/Day.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gymnopolis/model/Workout.dart';
 
 class Template {
   final String name;
   final Workout workout;
+  final DocumentReference reference;
 
-  Template({this.name,this.workout});
+  Template({this.name, this.workout, this.reference});
 
 
 

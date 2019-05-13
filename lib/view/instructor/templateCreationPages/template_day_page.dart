@@ -1,15 +1,18 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/model/Day.dart';
 import 'package:gymnopolis/model/Exercise.dart';
+import 'package:gymnopolis/model/Workout.dart';
 import 'package:gymnopolis/view/instructor/templateCreationPages/exercisebank_page.dart';
 
 class TemplateDayPage extends StatefulWidget {
   static String tag = 'workout-page';
 
+  final CollectionReference reference;
   final Day day;
 
-  TemplateDayPage(this.day);
+  TemplateDayPage(this.day, this.reference);
 
   createState() {
     return TemplateDayState();
@@ -17,13 +20,13 @@ class TemplateDayPage extends StatefulWidget {
 }
 
 class TemplateDayState extends State<TemplateDayPage> {
+  final changes = List<Exercise>();
+
   @override
   Widget build(BuildContext context) {
-    var items = widget.day.exerciseList;
-    items = new List<Exercise>.from(items)..addAll(ExerciseBankPage.selectedExercises);
+    changes.addAll(ExerciseBankPage.selectedExercises);
     ExerciseBankPage.selectedExercises = new List<Exercise>();
 
-    widget.day.exerciseList = items;
     void _showDialog2(Exercise ex) {
       // flutter defined function
       showDialog(
@@ -37,7 +40,7 @@ class TemplateDayState extends State<TemplateDayPage> {
                 children: <Widget>[
                   TextField(
                     keyboardType: TextInputType.number,
-                    onChanged: (value){
+                    onChanged: (value) {
                       ex.set = int.parse(value);
                     },
                     decoration: InputDecoration(
@@ -47,7 +50,7 @@ class TemplateDayState extends State<TemplateDayPage> {
                   ),
                   TextField(
                     keyboardType: TextInputType.number,
-                    onChanged: (value){
+                    onChanged: (value) {
                       ex.minRep = int.parse(value);
                     },
                     decoration: InputDecoration(
@@ -57,7 +60,7 @@ class TemplateDayState extends State<TemplateDayPage> {
                   ),
                   TextField(
                     keyboardType: TextInputType.number,
-                    onChanged: (value){
+                    onChanged: (value) {
                       ex.maxRep = int.parse(value);
                     },
                     decoration: InputDecoration(
@@ -67,7 +70,7 @@ class TemplateDayState extends State<TemplateDayPage> {
                   ),
                   TextField(
                     keyboardType: TextInputType.number,
-                    onChanged: (value){
+                    onChanged: (value) {
                       ex.minRPE = int.parse(value);
                     },
                     decoration: InputDecoration(
@@ -77,7 +80,7 @@ class TemplateDayState extends State<TemplateDayPage> {
                   ),
                   TextField(
                     keyboardType: TextInputType.number,
-                    onChanged: (value){
+                    onChanged: (value) {
                       ex.maxRPE = int.parse(value);
                     },
                     decoration: InputDecoration(
@@ -87,7 +90,7 @@ class TemplateDayState extends State<TemplateDayPage> {
                   ),
                   TextField(
                     keyboardType: TextInputType.number,
-                    onChanged: (value){
+                    onChanged: (value) {
                       ex.rest = int.parse(value);
                     },
                     decoration: InputDecoration(
@@ -124,9 +127,11 @@ class TemplateDayState extends State<TemplateDayPage> {
           }),
           new IconButton(icon: new Icon(Icons.add), onPressed: () {
             setState(() {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ExerciseBankPage()));
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ExerciseBankPage()));
             });
-          })]),
+          })
+        ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pop(context);
@@ -134,50 +139,52 @@ class TemplateDayState extends State<TemplateDayPage> {
         child: Icon(Icons.check)
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: ListView.builder(
-        itemCount: widget.day.exerciseList.length,
-        itemBuilder: (context, index) {
-          final item = widget.day.exerciseList[index].name;
+      body: StreamBuilder<QuerySnapshot>(
+        stream: widget.reference.snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError)
+            return Text('Error: ${snapshot.error}');
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return Text('Loading...');
 
-          return Dismissible(
-            // Each Dismissible must contain a Key. Keys allow Flutter to
-            // uniquely identify Widgets.
-            key: Key(item),
-            // We also need to provide a function that tells our app
-            // what to do after an item has been swiped away.
-            onDismissed: (direction) {
-              // Remove the item from our data source.
-              setState(() {
-                widget.day.exerciseList.removeAt(index);
-              });
+          List<Exercise> exercises = snapshot.data.documents.map((
+            DocumentSnapshot document) =>
+            Exercise(
+              base: Workout.exampleExercises()[document.data['id'] - 1],
+              set: document.data['set'],
+              minRep: document.data['minREP'],
+              maxRep: document.data['maxREP'],
+              minRPE: document.data['minRPE'],
+              maxRPE: document.data['maxRPE']
+            )).toList();
 
-              // Then show a snackbar!
-              Scaffold.of(context)
-                  .showSnackBar(SnackBar(content: Text("$item dismissed")));
-            },
-            // Show a red background as the item is swiped away
-            background: Container(color: Colors.red),
+          widget.day.exerciseList = exercises;
+          widget.day.exerciseList.addAll(changes);
 
-            child: Card(
-              child: GestureDetector(
-                onLongPress: (){
-                  _showDialog2(widget.day.exerciseList[index]);
-                },
-                child: new ListTile(
-                  leading: CircleAvatar(
+          return ListView.builder(
+            itemCount: widget.day.exerciseList.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: GestureDetector(
+                  onLongPress: () {
+                    _showDialog2(widget.day.exerciseList[index]);
+                  },
+                  child: new ListTile(
+                    leading: CircleAvatar(
                       backgroundColor: Colors.transparent,
                       radius: 20.0,
-                      child: Image.asset(widget.day.exerciseList[index].base.image)),
-                  title : new Text(widget.day.exerciseList[index].base.name,
-                    style: new TextStyle(fontSize: 22.0)),
-                  subtitle: new Text(widget.day.exerciseList[index].subtitle()),
+                      child: Image.asset(
+                        widget.day.exerciseList[index].base.image)),
+                    title: new Text(widget.day.exerciseList[index].base.name,
+                      style: new TextStyle(fontSize: 22.0)),
+                    subtitle: new Text(
+                      widget.day.exerciseList[index].subtitle()),
 
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           );
-        },
-      ),
-    );
+        }));
   }
 }

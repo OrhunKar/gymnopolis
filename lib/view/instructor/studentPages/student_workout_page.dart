@@ -8,8 +8,8 @@ class StudentWorkoutPage extends StatefulWidget{
 
   static String tag = 'instructor-profile-page';
 
-  String name;
-  Workout workout;
+  final String name;
+  final Workout workout;
 
   StudentWorkoutPage(this.name, this.workout);
 
@@ -22,11 +22,11 @@ class StudentWorkoutPage extends StatefulWidget{
 class StudentWorkoutPageState extends State<StudentWorkoutPage> {
 
   Widget build(BuildContext context) {
-    List<Workout> selectedWorkouts = List<Workout>();
+    /*List<Workout> selectedWorkouts = List<Workout>();
 
     selectedWorkouts.add(widget.workout);
 
-    for(var i = 0; i < TemplateSelectionPage.selectedTemplates.length; i++){
+    for (var i = 0; i < TemplateSelectionPage.selectedTemplates.length; i++) {
       selectedWorkouts.add(TemplateSelectionPage.selectedTemplates[i].workout);
     }
 
@@ -34,24 +34,26 @@ class StudentWorkoutPageState extends State<StudentWorkoutPage> {
 
     List<Day> currentDays = List<Day>();
 
-    for(var i = 0; i < selectedWorkouts.length; i++){
-      for(var k = 0; k < selectedWorkouts[i].days.length; k++) {
+    for (var i = 0; i < selectedWorkouts.length; i++) {
+      for (var k = 0; k < selectedWorkouts[i].days.length; k++) {
         currentDays.add(selectedWorkouts[i].days[k]);
       }
-    }
+    }*/
 
     return Scaffold(
       appBar: AppBar(
-          title: Text(widget.name)
-        ),
+        title: Text(widget.name)
+      ),
       floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => TemplateSelectionPage()));
-          },
-          child: Icon(Icons.add)
+        onPressed: () {
+          Navigator.push(context,
+            MaterialPageRoute(
+              builder: (context) => TemplateSelectionPage(widget.name)));
+        },
+        child: Icon(Icons.add)
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: ListView.builder(
+      body: Container() /*ListView.builder(
         itemCount: currentDays.length,
         itemBuilder: (context, index) {
           final item = currentDays[index].name;
@@ -81,8 +83,7 @@ class StudentWorkoutPageState extends State<StudentWorkoutPage> {
               },
             ),
           );
-        },
-      ),
+        },*/
     );
   }
 }

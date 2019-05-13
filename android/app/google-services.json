@@ -1,35 +1,42 @@
 {
   "project_info": {
-    "project_number": "765610800758",
-    "firebase_url": "https://gymnopolisfirebase.firebaseio.com",
-    "project_id": "gymnopolisfirebase",
-    "storage_bucket": "gymnopolisfirebase.appspot.com"
+    "project_number": "515919829177",
+    "firebase_url": "https://cs492-gymnopolis2.firebaseio.com",
+    "project_id": "cs492-gymnopolis2",
+    "storage_bucket": "cs492-gymnopolis2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:765610800758:android:89b80c2289911307",
+        "mobilesdk_app_id": "1:515919829177:android:89b80c2289911307",
         "android_client_info": {
           "package_name": "com.gymnopolis.gymnopolis"
         }
       },
       "oauth_client": [
         {
-          "client_id": "765610800758-53rqmbbs09ob32m6jiuet2qinsmv45pb.apps.googleusercontent.com",
+          "client_id": "515919829177-0ivkg1jcqv69bocruhujjqprptvj82m7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCRSdNCaY1AtNtwXEHT7MiSncKkUd-zd_Q"
+          "current_key": "AIzaSyDyVCte1raw10orToSG5UfovHfNC2Q7AA4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "765610800758-53rqmbbs09ob32m6jiuet2qinsmv45pb.apps.googleusercontent.com",
+              "client_id": "515919829177-0ivkg1jcqv69bocruhujjqprptvj82m7.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "515919829177-klc30abgnbmt93r9hd9t056u4oukckuf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gymnopolis.gymnopolis2"
+              }
             }
           ]
         }

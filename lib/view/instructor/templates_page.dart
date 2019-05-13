@@ -40,7 +40,7 @@ class TemplatesPage extends StatefulWidget with Page{
                 Engine.allTemplates.add(new Template(name: myController.text, workout: new Workout("Fatty", "PlaceHolder Inst", List<Day>())));
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => TemplateWorkoutPage(Engine.allTemplates.last.name, Engine.allTemplates.last.workout)));
+                    builder: (context) => TemplateWorkoutPage(Engine.allTemplates.last.name, Engine.allTemplates.last.workout, false)));
                 },
 
             ),
@@ -116,7 +116,9 @@ Widget builderFunc(BuildContext context, [String query = '']){
         List<Template> templates = snapshot.data.documents
           .where((document) => document.data.containsKey('name')
             && document.data['name'].toString().toLowerCase().contains(query))
-          .map((document) => Template(name: document.data['name'], workout: null))
+          .map((document) => Template(
+            name: document.data['name'],
+            workout: Workout('', '', null)))
           .toList();
 
         return GridView.builder(
@@ -147,7 +149,7 @@ Widget builderFunc(BuildContext context, [String query = '']){
                 ),
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => 
-                    TemplateWorkoutPage(templates[index].name, templates[index].workout)));
+                    TemplateWorkoutPage(templates[index].name, templates[index].workout, true)));
                 },
               );
             });

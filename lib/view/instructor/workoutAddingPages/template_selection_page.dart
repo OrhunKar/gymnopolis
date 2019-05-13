@@ -9,6 +9,10 @@ class TemplateSelectionPage extends StatefulWidget{
 
   static List<Template> selectedTemplates = List<Template>();
 
+  final String name;
+
+  TemplateSelectionPage(this.name);
+
   createState() {
     return TemplateSelectionPageState();
   }
@@ -16,40 +20,56 @@ class TemplateSelectionPage extends StatefulWidget{
 
 @override
 class TemplateSelectionPageState extends State<TemplateSelectionPage> {
+  final workoutPlans = Firestore.instance.collection('workout_plans');
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('workout_plans')
-        .where('name', isNull: false).snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError)
-          return new Text('Error: ${snapshot.error}');
-        if (snapshot.connectionState == ConnectionState.waiting)
-          return new Text('Loading...');
-        
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('Templates'),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  showSearch(context: context, delegate: TemplateSearch());
-                })]),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                
-                Navigator.pop(context);
-              },
-              child: Icon(Icons.check)
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-            body: builderFunc(context, snapshot.data.documents.map((document) =>
-              Template(
-                name: document.data['name'],
-                workout: null
-            )).toList()));
-        });
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Templates'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: TemplateSearch());
+            })]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            TemplateSelectionPage.selectedTemplates.forEach((template) async {
+              var workoutPlan = template.reference;
+              var days = (await workoutPlan.get()).data['days'];
+              var newWorkoutPlan = await workoutPlans.add({
+                'days': days, 'trainer': Engine.user, 'trainee': widget.name});
+
+              for (int day = 1; day <= days; day++) {
+                var workoutDay = (await workoutPlan.collection(day.toString())
+                  .getDocuments()).documents;
+                var newWorkoutDay = newWorkoutPlan.collection(day.toString());
+                workoutDay.forEach((document) => newWorkoutDay.add(document.data));
+              }
+            });
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.check)
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        body: StreamBuilder<QuerySnapshot>(
+          stream: workoutPlans.snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError)
+              return Text('Error: ${snapshot.error}');
+            if (snapshot.connectionState == ConnectionState.waiting)
+              return Text('Loading...');
+
+            return builderFunc(context, snapshot.data.documents
+              .where((document) => document.data.containsKey('name'))
+              .map((document) =>
+                Template(
+                  reference: document.reference,
+                  name: document.data['name'],
+                  workout: null
+                )).toList());
+          }));
   }
 }
 
@@ -111,32 +131,6 @@ Widget builderFunc(BuildContext context, List results){
           results[index],
           isSelected: false)
         );
-
-
-
-
-
-
-  /*Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: new Card(
-            color: color,
-            elevation: 5.0,
-            child: Column(
-              children: <Widget>[
-                new Container(
-                  alignment: Alignment.bottomCenter,
-                  child: new Text(results.toList()[index].name,
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),),
-                ),
-                new Container(
-                  alignment: Alignment.center,
-                  child: new Image.asset('assets/benchpress3.png'),
-                )
-              ],
-            ),
-          ),
-        );*/
       });
 }
 
