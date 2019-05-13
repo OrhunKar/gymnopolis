@@ -86,9 +86,9 @@ class WorkoutState extends State<WorkoutPage> {
         var workoutPlan = snapshot.data.documents[0];
         var trainer = workoutPlan.data['trainer'];
         var days = workoutPlan.data['days'];
-        setState(() {
+        // setState(() {
           keys = List.generate(days, (i) => ValueKey(i));
-        });
+        // });
 
         return ReorderableList(
           onReorder: this._reorderCallback,

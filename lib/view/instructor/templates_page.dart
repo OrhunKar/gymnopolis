@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gymnopolis/controller/Engine.dart';
 import 'package:gymnopolis/model/Day.dart';
@@ -6,8 +7,6 @@ import 'package:gymnopolis/model/Workout.dart';
 import 'package:gymnopolis/view/Page.dart';
 import 'package:gymnopolis/view/instructor/templateCreationPages/template_workout_page.dart';
 import 'dart:math' as math;
-
-
 
 class TemplatesPage extends StatefulWidget with Page{
   static String tag = 'templates-page';
@@ -59,10 +58,9 @@ class TemplatesPage extends StatefulWidget with Page{
 
 @override
 class TemplatesPageState extends State<TemplatesPage> {
-
-
+  @override
   Widget build(BuildContext context) {
-    return builderFunc(context, Engine.allTemplates.toList());
+    return builderFunc(context);
   }
 }
 
@@ -96,54 +94,63 @@ class TemplateSearch extends SearchDelegate<Template>{
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
     //This is same as the suggestions part this method got triggered when search icon pressed on the keyboard
-    final results = Engine.allTemplates.where((a) => a.name.toLowerCase().contains(query));
-
-
-    return builderFunc(context, results.toList());
+    return builderFunc(context, query);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     // TODO: implement buildSuggestions
-
-    final results = Engine.allTemplates.where((a) => a.name.toLowerCase().contains(query));
-
-
-    return builderFunc(context, results.toList());
+    return builderFunc(context, query);
   }
 }
 
-Widget builderFunc(BuildContext context, List results){
-  return GridView.builder(
-      itemCount: results.length,
-      gridDelegate:
-      new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-      itemBuilder: (BuildContext context, int index) {
-        return new GestureDetector(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: new Card(
-              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(1.0),
-              elevation: 5.0,
-              child: Column(
-                children: <Widget>[
-                  new Container(
-                    alignment: Alignment.bottomCenter,
-                    child: new Text(results.toList()[index].name,
-                      style: TextStyle(color: Colors.white, fontSize: 20.0),),
+Widget builderFunc(BuildContext context, [String query = '']){
+  return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection('workout_plans').snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError)
+          return new Text('Error: ${snapshot.error}');
+        if (snapshot.connectionState == ConnectionState.waiting)
+          return new Text('Loading...');
+
+        List<Template> templates = snapshot.data.documents
+          .where((document) => document.data.containsKey('name')
+            && document.data['name'].toString().toLowerCase().contains(query))
+          .map((document) => Template(name: document.data['name'], workout: null))
+          .toList();
+
+        return GridView.builder(
+            itemCount: templates.length,
+            gridDelegate:
+            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            itemBuilder: (BuildContext context, int index) {
+              return new GestureDetector(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Card(
+                    color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(1.0),
+                    elevation: 5.0,
+                    child: Column(
+                      children: <Widget>[
+                        new Container(
+                          alignment: Alignment.bottomCenter,
+                          child: new Text(templates[index].name,
+                            style: TextStyle(color: Colors.white, fontSize: 20.0),),
+                        ),
+                        new Container(
+                          alignment: Alignment.center,
+                          child: new Image.asset('assets/benchpress3.png'),
+                        )
+                      ],
+                    ),
                   ),
-                  new Container(
-                    alignment: Alignment.center,
-                    child: new Image.asset('assets/benchpress3.png'),
-                  )
-                ],
-              ),
-            ),
-          ),
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => TemplateWorkoutPage(results.toList()[index].name, results.toList()[index].workout)));
-          },
-        );
+                ),
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => 
+                    TemplateWorkoutPage(templates[index].name, templates[index].workout)));
+                },
+              );
+            });
       });
 }
 
